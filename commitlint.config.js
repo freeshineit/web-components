@@ -15,6 +15,7 @@ module.exports = {
         'refactor',
         'style',
         'revert',
+        'version',
       ],
     ],
   },
