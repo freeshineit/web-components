@@ -7,11 +7,21 @@ const webpack = require('webpack')
 const through = require('through2')
 const vite = require('vite')
 const rename = require('gulp-rename')
+const header = require('gulp-header')
 const BundleAnalyzerPlugin =
   require('webpack-bundle-analyzer').BundleAnalyzerPlugin
 const tsconfig = require('./tsconfig.json')
 const packageJson = require('./package.json')
 const StatoscopeWebpackPlugin = require('@statoscope/webpack-plugin').default
+
+var banner = `/*
+ * ${packageJson.name} ${packageJson.version}
+ * ${packageJson.description}
+ * ${packageJson.homepage}
+ *
+ * Copyright 2022, ${packageJson.author}
+ * Released under the ${packageJson.license} license.
+ */\n`
 
 /** 清空lib下的文件 */
 function clean() {
@@ -44,6 +54,7 @@ function buildES() {
         plugins: [],
       })
     )
+    .pipe(header(banner))
     .pipe(gulp.dest('lib/es/'))
 }
 
@@ -59,6 +70,7 @@ function buildDeclaration() {
       ignore: ['**/demos/**/*', '**/tests/**/*'],
     })
     .pipe(tsProject)
+    .pipe(header(banner))
     .pipe(gulp.dest('lib/es/'))
     .pipe(gulp.dest('lib/cjs/'))
 }
@@ -138,6 +150,7 @@ function umdWebpack() {
               saveStatsTo: 'report/statoscope/stats.json',
               open: false,
             }),
+            new webpack.BannerPlugin({ banner }),
           ],
           module: {
             rules: [
