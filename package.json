@@ -13,7 +13,8 @@
   "keywords": [
     "web component",
     "web components",
-    "web-component"
+    "web-component",
+    "lit"
   ],
   "scripts": {
     "dev": "webpack server --mode development --open",
