@@ -4,17 +4,16 @@
     <meta charset="UTF-8" />
     <title>Example of WebComponent</title>
     <script src="./index.js"></script>
+    <style>
+      .container {
+        display: block;
+      }
+    </style>
   </head>
 
   <body>
-    <wc-hello-world
-      title="Hello World!"
-      description="This is my hello world web component"
-    >
-    </wc-hello-world>
-    <wc-button
-      title="Button"
-      description="This is my button  web component"
-    ></wc-button>
+    <wc-button title="HaHa" class="container">1234123</wc-button>
+    <wc-input></wc-input>
+    <wc-list colors='["block", "red", "yellow", "green"]'></wc-list>
   </body>
 </html>

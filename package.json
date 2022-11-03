@@ -1,6 +1,6 @@
 {
   "name": "@skax/web-components",
-  "version": "0.1.0",
+  "version": "0.1.1-alpha1",
   "main": "./cjs/index.js",
   "module": "./es/index.js",
   "types": "./es/index.d.ts",
@@ -14,7 +14,8 @@
     "web component",
     "web components",
     "web-component",
-    "lit"
+    "lit",
+    "typescript"
   ],
   "scripts": {
     "dev": "webpack server --mode development --open",

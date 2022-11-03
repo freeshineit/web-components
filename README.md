@@ -22,6 +22,10 @@ cd docs && http-server -p 8080 .
 
 > yarn install @skax/web-components
 
+### component
+
+`wc-input`, `wc-button`, `wc-list`
+
 ### html
 
 ```html
@@ -29,7 +33,7 @@ cd docs && http-server -p 8080 .
 <script src="./lib/bundle/@skax/web-components.umd.js"></script>
 
 <!-- html -->
-<wc-button title="Button" description="This is my button web component"></wc-button>
+<wc-button>Button</wc-button>
 ```
 
 ### react
@@ -38,7 +42,7 @@ cd docs && http-server -p 8080 .
 import '@skax/web-components'
 
 function App() {
-  return <wc-button title="Button" description="This is my button web component"></wc-button>;
+  return <wc-button>Button</wc-button>;
 }
 ```
 
@@ -65,6 +69,6 @@ export declare global {
 </script>
 
 <template>
-  <wc-button></wc-button>
+  <wc-button>Button</wc-button>
 </template>
 ```

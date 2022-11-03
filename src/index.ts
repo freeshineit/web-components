@@ -1,2 +1,3 @@
-import './hello-world'
 import './button'
+import './input'
+import './list'
