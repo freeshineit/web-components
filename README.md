@@ -40,6 +40,7 @@ cd docs && http-server -p 8080 .
 
 ```tsx
 import '@skax/web-components'
+// import '@skax/web-components/es/button'
 
 function App() {
   return <wc-button>Button</wc-button>;
@@ -66,6 +67,7 @@ export declare global {
 ```vue
 <script setup>
   import '@skax/web-components'
+  // import '@skax/web-components/es/button'
 </script>
 
 <template>
