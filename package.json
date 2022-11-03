@@ -1,6 +1,6 @@
 {
   "name": "@skax/web-components",
-  "version": "0.1.0-alpha2",
+  "version": "0.1.0",
   "main": "./cjs/index.js",
   "module": "./es/index.js",
   "types": "./es/index.d.ts",
