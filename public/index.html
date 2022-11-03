@@ -1,16 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
+  <head>
+    <meta charset="UTF-8" />
     <title>Example of WebComponent</title>
-    <!-- <script src="webcomponents/webcomponents-loader.js"></script> -->
-    <script src="./index.js" type="module"></script>
-</head>
+    <script src="./index.js"></script>
+  </head>
 
-<body>
-    <hello-world title="Hello World!" description="This is my hello world web component"></hello-world>
-    <wc-button title="Button" description="This is my button  web component"></wc-button>
-</body>
-
+  <body>
+    <wc-hello-world
+      title="Hello World!"
+      description="This is my hello world web component"
+    >
+    </wc-hello-world>
+    <wc-button
+      title="Button"
+      description="This is my button  web component"
+    ></wc-button>
+  </body>
 </html>

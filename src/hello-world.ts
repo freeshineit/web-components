@@ -1,14 +1,13 @@
-import { LitElement, html } from "lit";
-import { property, customElement } from "lit/decorators.js";
+import { LitElement, html } from 'lit'
+import { property, customElement } from 'lit/decorators.js'
 
-@customElement("hello-world")
+@customElement('wc-hello-world')
 export class HelloWorldElem extends LitElement {
-  @property({ type: String }) title: string = "default title";
-  @property({ type: String }) description: string = "default description";
+  @property({ type: String }) title: string = 'default title'
+  @property({ type: String }) description: string = 'default description'
 
   render() {
-    console.log("hello-world");
-
+    // console.log("wc-hello-world");
     // https://tc39.es/proposal-template-literal-revision/
     return html`
       <style>
@@ -25,6 +24,6 @@ export class HelloWorldElem extends LitElement {
         <h1>${this.title}</h1>
         <p>${this.description}</p>
       </div>
-    `;
+    `
   }
 }

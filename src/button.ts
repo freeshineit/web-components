@@ -1,12 +1,12 @@
-import { LitElement, html } from "lit";
-import { property, customElement } from "lit/decorators.js";
+import { LitElement, html } from 'lit'
+import { property, customElement } from 'lit/decorators.js'
 
-@customElement("wc-button")
+@customElement('wc-button')
 export class ButtonElem extends LitElement {
-  @property({ type: String }) title: string = "button title";
+  @property({ type: String }) title: string = 'button title'
 
   render() {
-    console.log("wc-button");
+    // console.log('wc-button')
     return html`
       <style>
         .container {
@@ -19,8 +19,8 @@ export class ButtonElem extends LitElement {
         }
       </style>
       <button class="container">
-        <h1>${this.title}</h1>
+        <h1>${this.title} #0099e5</h1>
       </button>
-    `;
+    `
   }
 }
