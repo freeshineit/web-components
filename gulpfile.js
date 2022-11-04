@@ -14,7 +14,7 @@ const tsconfig = require('./tsconfig.json')
 const packageJson = require('./package.json')
 const StatoscopeWebpackPlugin = require('@statoscope/webpack-plugin').default
 
-var banner = `/*
+const banner = `/*
  * ${packageJson.name} ${packageJson.version}
  * ${packageJson.description}
  * ${packageJson.homepage}
@@ -22,6 +22,24 @@ var banner = `/*
  * Copyright 2022, ${packageJson.author}
  * Released under the ${packageJson.license} license.
  */\n`
+
+// name
+const wcName =
+  packageJson.name.split('/')[packageJson.name.split('/').length - 1]
+
+/**
+ * 下划线或横线转换驼峰
+ *
+ * @example
+ * toHump('wc-ui'); // wcName
+ * toHump('wc_ui'); // wcName
+ * @param {string} name
+ *
+ * @return string
+ */
+function toHump(name) {
+  return name.replace(/[\_,\-](\w)/g, (all, letter) => letter.toUpperCase())
+}
 
 /** 清空lib下的文件 */
 function clean() {
@@ -86,7 +104,7 @@ function getViteConfigForPackage({ env, formats, external }) {
     build: {
       cssTarget: 'chrome61',
       lib: {
-        name: 'webComponents',
+        name: toHump(wcName),
         entry: './lib/es/index.js',
         formats,
         fileName: format => `${name}.${format}${isProd ? '' : `.${env}`}.js`,
@@ -123,10 +141,10 @@ function umdWebpack() {
       webpackStream(
         {
           output: {
-            filename: 'web-components.js',
+            filename: `${wcName}.js`,
             library: {
               type: 'umd',
-              name: 'webComponents',
+              name: toHump(wcName),
             },
           },
           mode: 'production',
@@ -187,8 +205,8 @@ function umdWebpack() {
 
 function copyUmd() {
   return gulp
-    .src(['lib/umd/web-components.js'])
-    .pipe(rename('web-components.compatible.umd.js'))
+    .src([`lib/umd/${wcName}.js`])
+    .pipe(rename(`${wcName}.compatible.umd.js`))
     .pipe(gulp.dest('lib/bundle/'))
 }
 
