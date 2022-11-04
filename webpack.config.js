@@ -29,6 +29,7 @@ module.exports = (env, argv) => {
     output: {
       path: distPath,
       filename: 'index.js',
+      publicPath: './',
     },
     module: {
       rules: [
