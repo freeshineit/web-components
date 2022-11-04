@@ -238,6 +238,10 @@ function generatePackageJSON() {
 exports.umdWebpack = umdWebpack
 exports.buildBundles = buildBundles
 
+exports.copyPublicToDocs = function copyPublicToDocs() {
+  return gulp.src(['public/**/*', '!public/index.html']).pipe(gulp.dest('docs'))
+}
+
 exports.default = gulp.series(
   clean,
   buildES,

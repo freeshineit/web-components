@@ -1,6 +1,6 @@
 const path = require('path')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
-const CopyWebpackPlugin = require('copy-webpack-plugin')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
 
 module.exports = (env, argv) => {
   const isProd = argv.mode === 'production'
@@ -21,8 +21,9 @@ module.exports = (env, argv) => {
     devtool: argv.mode === 'production' ? undefined : 'inline-source-map',
     plugins: [
       new CleanWebpackPlugin(),
-      new CopyWebpackPlugin({
-        patterns: [{ from: './public', to: distPath }],
+      new HtmlWebpackPlugin({
+        template: path.join(__dirname, 'public/index.html'),
+        filename: 'index.html',
       }),
     ],
     output: {
