@@ -7,18 +7,34 @@ import { classMap } from 'lit/directives/class-map.js'
 export class ButtonElem extends LitElement {
   static styles = css`
     button {
-      color: #0099e5;
-      border: 1px solid #0099e5;
-      border-radius: 0px;
-      background-color: #fff;
-      padding: 5px 12px;
+      line-height: 1.5715;
+      position: relative;
+      display: inline-block;
+      font-weight: 400;
+      white-space: nowrap;
+      text-align: center;
+      background-image: none;
+      border: 1px solid transparent;
+      box-shadow: 0 2px #00000004;
       cursor: pointer;
-      transition: background-color 0.3s;
+      transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+      touch-action: manipulation;
+      height: 32px;
+      padding: 4px 15px;
+      font-size: 14px;
+      border-radius: 2px;
+      color: #000000d9;
+      border-color: #d9d9d9;
+      background: #fff;
     }
 
     button:hover {
-      background-color: #0099e5;
-      color: #fff;
+      border-color: #1890ff;
+      color: #1890ff;
     }
   `
 
@@ -41,7 +57,6 @@ export class ButtonElem extends LitElement {
     const classes = { enabled: this.class, hidden: false }
 
     return html`<button class="${classMap(classes)}" @click=${this._click}>
-      ${this.title}
       <slot></slot>
     </button> `
   }
