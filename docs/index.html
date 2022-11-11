@@ -4,15 +4,96 @@
     <meta charset="UTF-8" />
     <title>Example of WebComponent</title>
     <style>
-      .container {
-        display: block;
+      .container-center {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .content {
+        width: 500px;
+      }
+
+      .flex {
+        display: flex;
+      }
+
+      wc-input {
+        width: 400px;
+      }
+
+      wc-button {
+        width: 100px;
       }
     </style>
     <script defer="defer" src="./index.js"></script>
   </head>
   <body>
-    <wc-button title="HaHa" class="container">999</wc-button
-    ><wc-input></wc-input
-    ><wc-list colors='["block", "red", "yellow", "green"]'></wc-list>
+    <div class="container-center">
+      <div class="content">
+        <div class="flex">
+          <wc-input
+            onfocus="console.log('1234123')"
+            type="text"
+            name="color"
+            id="color"
+            placeholder="请输入颜色"
+          ></wc-input
+          ><wc-button title="HaHa" class="container" id="submit"
+            >确定</wc-button
+          >
+        </div>
+        <wc-list colors id="list-box"></wc-list>
+      </div>
+    </div>
+    <script>
+      ;(function () {
+        const submitDom = document.getElementById('submit')
+        const listDom = document.getElementById('list-box')
+        const inputDom = document.getElementById('color')
+
+        const colors = []
+
+        submitDom.addEventListener(
+          'click',
+          () => {
+            setColors()
+          },
+          false
+        )
+
+        inputDom.addEventListener('focus', event => {
+          console.log('submitDom.addEventListener', event.keyCode)
+          document.addEventListener('keydown', handleKeydown, false)
+        })
+
+        submitDom.addEventListener(
+          'blur',
+          () => {
+            document.removeEventListener('keydown', handleKeydown, false)
+          },
+          false
+        )
+
+        function handleKeydown(event) {
+          console.log(event)
+          if (event.keyCode === 13) {
+            setColors()
+          }
+        }
+
+        function setColors() {
+          const color = document.getElementById('color').value
+
+          console.log(color)
+          if (color.trim()) {
+            colors.push(color)
+            listDom.setAttribute('colors', JSON.stringify(colors))
+            // inputDom.setAttribute('value', '')
+          }
+        }
+      })()
+    </script>
   </body>
 </html>
