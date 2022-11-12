@@ -2,7 +2,7 @@ import { LitElement, html, css } from 'lit'
 import { property, customElement } from 'lit/decorators.js'
 
 @customElement('wc-list')
-export class ListElem extends LitElement {
+export class WCListElement extends LitElement {
   static styles = css`
     ul,
     li {
@@ -33,7 +33,7 @@ export class ListElem extends LitElement {
       }
     },
   })
-  colors = ['red', 'green', 'blue'] // 默认值
+  colors = [] // 默认值
 
   firstUpdated() {
     console.log('wc-list firstUpdated')
@@ -46,5 +46,11 @@ export class ListElem extends LitElement {
         color => html`<li style="color: ${color}">${color}</li>`
       )}
     </ul> `
+  }
+}
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'wc-list': WCListElement
   }
 }

@@ -4,16 +4,25 @@ import { customElement, property, state, query } from 'lit/decorators.js'
 import '../button'
 
 // https://lit.dev/docs/composition/component-composition/#passing-data-across-the-tree
+// https://html.spec.whatwg.org/multipage/custom-elements.html#custom-elements-face-example 表单关联值
+// https://web.dev/more-capable-form-controls/
+// https://css-tricks.com/creating-custom-form-controls-with-elementinternals/
 @customElement('wc-input')
-export class InputElement extends LitElement {
+export class WCInputElement extends LitElement {
+  static get formAssociated() {
+    return true
+  }
+
   static styles = css`
-    :host([hidden]) {
-      display: none;
-    }
     :host {
       --primary-color-hover: #40a9ff;
       display: block;
     }
+
+    :host([hidden]) {
+      display: none;
+    }
+
     input {
       box-sizing: border-box;
       margin: 0;
@@ -34,11 +43,25 @@ export class InputElement extends LitElement {
     }
     input:focus {
       border-color: var(--primary-color-hover);
-      box-shadow: 0 0 0 2px var(--primary-color-outline);
+      box-shadow: 0 0 0 2px rgba(24, 144, 255, 0.2);
+      border-right-width: 1px;
+      outline: 0;
+    }
+
+    input:hover {
+      border-color: var(--primary-color-hover);
       border-right-width: 1px;
       outline: 0;
     }
   `
+
+  private _internals: any
+
+  constructor() {
+    super()
+    this._internals = this.attachInternals()
+  }
+
   @property({ reflect: true, type: String })
   type: 'text' | 'number' | 'hidden' | 'tel' | 'url' | 'password' | 'email' =
     'text'
@@ -57,13 +80,19 @@ export class InputElement extends LitElement {
   @query('input')
   _input!: HTMLInputElement
 
-  // firstUpdated() {
-  //   console.log('wc-input firstUpdated')
-  // }
+  firstUpdated() {
+    /** This ensures our element always participates in the form */
+    this._internals.setFormValue(this.value)
+  }
 
-  _keydown(e: InputEvent) {
-    this.value = (e.target as HTMLInputElement).value
+  _onKeydown(event: InputEvent) {
+    this.value = (event.target as HTMLInputElement).value
     // this.dispatchEvent(new Event('keydown'))
+  }
+
+  _onInput(event: InputEvent) {
+    this.value = (event.target as HTMLInputElement).value
+    this._internals.setFormValue(this.value)
   }
 
   render() {
@@ -72,13 +101,14 @@ export class InputElement extends LitElement {
       name=${this.name || null}
       value=${this.value || null}
       placeholder=${this.placeholder || null}
-      @keydown=${this._keydown}
+      @keydown=${this._onKeydown}
+      @input=${this._onInput}
     />`
   }
 }
 
 declare global {
   interface HTMLElementTagNameMap {
-    'wc-input': InputElement
+    'wc-input': WCInputElement
   }
 }

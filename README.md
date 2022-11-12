@@ -32,8 +32,16 @@ cd docs && http-server -p 8080 .
 <!-- script -->
 <script src="./lib/bundle/@skax/web-components.umd.js"></script>
 
-<!-- html -->
-<wc-button>Button</wc-button>
+<form action="/get" name="form">
+  <label for="name">
+    <wc-input type="text" name="name" id="name" placeholder="input name"></wc-input>
+  </label>
+  <label for="password">
+    <wc-input type="password" name="password" id="password" placeholder="input password"></wc-input>
+  </label>
+  <wc-button type="submit">Submit</wc-button>
+  <wc-button type="rest">Rest</wc-button>
+</form>
 ```
 
 ### react
@@ -50,17 +58,20 @@ function App() {
 如果使用了 typescript，在 `react-app-env.d.ts`中添加下面声明。
 
 ```ts
+/// <reference types="@skax/web-components" />
+
 export declare global {
   namespace JSX {
     interface IntrinsicElements {
-      "wc-button": React.DetailedHTMLProps<
-        React.HTMLAttributes<HTMLElement>,
-        HTMLElement
-      >;
+      "wc-button": WCButtonElement;
+      "wc-input": WCInputElement;
+      "wc-list": WCListElement;
     }
   }
 }
 ```
+
+[example](https://codesandbox.io/s/adoring-cdn-f7h4li)
 
 ### vue3
 
@@ -74,3 +85,5 @@ export declare global {
   <wc-button>Button</wc-button>
 </template>
 ```
+
+[example](https://codesandbox.io/s/cool-cannon-5ou03c)
