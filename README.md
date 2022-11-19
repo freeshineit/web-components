@@ -1,5 +1,10 @@
 ## Web Components
 
+![build](https://github.com/freeshineit/web-components/workflows/build/badge.svg)
+![Download](https://img.shields.io/npm/dm/@skax/web-components.svg)
+![Version](https://img.shields.io/npm/v/@skax/web-components.svg)
+![License](https://img.shields.io/npm/l/@skax/web-components.svg)
+
 [Web Components](https://developer.mozilla.org/zh-CN/docs/Web/Web_Components) 是一套不同的技术，允许您创建可重用的定制元素（它们的功能封装在您的代码之外）并且在您的 web 应用中使用它们。
 
 ## Scripts
