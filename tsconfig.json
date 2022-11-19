@@ -1,13 +1,23 @@
 {
-    "compilerOptions": {
-      "outDir": "./dist/",
-      "experimentalDecorators": true,
-      "strict": true,
-      "sourceMap": true,
-      "module": "es6",
-      "target": "es6",
-      "moduleResolution": "node",
-      "jsx": "react",
-      "allowJs": true
-    }
-  }
+  "compilerOptions": {
+    "target": "es2015",
+    "module": "commonjs",
+    "checkJs": false,
+    "rootDir": "./",
+    "strict": false,
+    "noImplicitAny": false,
+    "strictNullChecks": false,
+    "strictFunctionTypes": false,
+    "strictBindCallApply": false,
+    "strictPropertyInitialization": false,
+    "noImplicitThis": false,
+    "alwaysStrict": false,
+    "moduleResolution": "node",
+    "allowSyntheticDefaultImports": false,
+    "esModuleInterop": true,
+    "experimentalDecorators": true,
+    "forceConsistentCasingInFileNames": true
+  },
+  "exclude": ["./node_modules", "./**/*.spec.ts"],
+  "include": ["./src/**/*.ts"]
+}

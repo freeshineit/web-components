@@ -14,7 +14,7 @@ yarn run build
 # build document
 # https://github.com/http-party/http-server
 # version >= 14
-yarn run build-doc
+yarn run build:doc
 cd docs && http-server -p 8080 .
 ```
 

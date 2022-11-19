@@ -9,9 +9,7 @@ import '../button'
 // https://css-tricks.com/creating-custom-form-controls-with-elementinternals/
 @customElement('wc-input')
 export class WCInputElement extends LitElement {
-  static get formAssociated() {
-    return true
-  }
+  static formAssociated = true
 
   static styles = css`
     :host {
@@ -59,7 +57,11 @@ export class WCInputElement extends LitElement {
 
   constructor() {
     super()
-    this._internals = this.attachInternals()
+    // jsdom 环境下 `attachInternals()` 报错
+    // 兼容
+    this._internals = this?.attachInternals
+      ? this?.attachInternals()
+      : ({} as ElementInternals)
   }
 
   @property({ reflect: true, type: String })
@@ -82,7 +84,7 @@ export class WCInputElement extends LitElement {
 
   firstUpdated() {
     /** This ensures our element always participates in the form */
-    this._internals.setFormValue(this.value)
+    this._internals?.setFormValue(this.value)
   }
 
   _onKeydown(event: InputEvent) {
@@ -92,7 +94,7 @@ export class WCInputElement extends LitElement {
 
   _onInput(event: InputEvent) {
     this.value = (event.target as HTMLInputElement).value
-    this._internals.setFormValue(this.value)
+    this._internals?.setFormValue(this.value)
   }
 
   render() {

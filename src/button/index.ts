@@ -6,9 +6,7 @@ import { classMap } from 'lit/directives/class-map.js'
 // https://www.w3.org/TR/2011/WD-html5-20110525/association-of-controls-and-forms.html
 @customElement('wc-button')
 export class WCButtonElement extends LitElement {
-  static get formAssociated() {
-    return true
-  }
+  static formAssociated = true
 
   static styles = css`
     button {
@@ -56,7 +54,11 @@ export class WCButtonElement extends LitElement {
 
   constructor() {
     super()
-    this._internals = this.attachInternals()
+    // jsdom 环境下 `attachInternals()` 报错
+    // 兼容
+    this._internals = this?.attachInternals
+      ? this?.attachInternals()
+      : ({} as ElementInternals)
   }
 
   firstUpdated() {
