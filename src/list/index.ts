@@ -21,7 +21,7 @@ export class WCListElement extends LitElement {
   // converter
   @property({
     type: Array,
-    converter: v => {
+    converter: function (v: string): Array<string> {
       try {
         const arr = JSON.parse(v as string)
         if (Array.isArray(arr)) {
@@ -49,8 +49,6 @@ export class WCListElement extends LitElement {
   }
 }
 
-declare global {
-  interface HTMLElementTagNameMap {
-    'wc-list': WCListElement
-  }
+export interface HTMLElementTagNameMap {
+  'wc-list': WCListElement
 }

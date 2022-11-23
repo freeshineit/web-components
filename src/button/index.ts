@@ -100,8 +100,6 @@ export class WCButtonElement extends LitElement {
   }
 }
 
-declare global {
-  interface HTMLElementTagNameMap {
-    'wc-button': WCButtonElement
-  }
+export interface HTMLElementTagNameMap {
+  'wc-button': WCButtonElement
 }

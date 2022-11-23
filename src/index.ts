@@ -1,3 +1,6 @@
 import './button'
+export type { WCButtonElement } from './button'
 import './input'
+export type { WCInputElement } from './input'
 import './list'
+export type { WCListElement } from './list'

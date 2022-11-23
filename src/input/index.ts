@@ -109,8 +109,6 @@ export class WCInputElement extends LitElement {
   }
 }
 
-declare global {
-  interface HTMLElementTagNameMap {
-    'wc-input': WCInputElement
-  }
+export interface HTMLElementTagNameMap {
+  'wc-input': WCInputElement
 }
