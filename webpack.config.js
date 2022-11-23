@@ -1,6 +1,7 @@
 const path = require('path')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+const Sass = require('sass')
 
 module.exports = (env, argv) => {
   const isProd = argv.mode === 'production'
@@ -39,16 +40,15 @@ module.exports = (env, argv) => {
           exclude: /node_modules/,
         },
         {
-          test: /\.css$/,
-          include: path.resolve(__dirname, 'src'),
-          use: ['style-loader', 'css-loader'],
-        },
-        {
           test: /\.s[a|c]ss$/,
           use: [
-            { loader: 'style-loader' },
-            { loader: 'css-loader' },
-            { loader: 'sass-loader' },
+            {
+              loader: 'lit-css-loader',
+              options: {
+                transform: (data, { filePath }) =>
+                  Sass.renderSync({ data, file: filePath }).css.toString(),
+              },
+            },
           ],
         },
         {
