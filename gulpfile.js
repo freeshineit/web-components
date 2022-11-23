@@ -64,7 +64,7 @@ function buildES() {
   })
   return gulp
     .src(['src/**/*.{ts,tsx}'], {
-      ignore: ['**/demos/**/*', '**/tests/**/*'],
+      ignore: ['**/demos/**/*', '**/tests/**/*', '**/*.spec.{ts,tsx}'],
     })
     .pipe(tsProject)
     .pipe(
@@ -85,7 +85,7 @@ function buildDeclaration() {
   })
   return gulp
     .src(['src/**/*.{ts,tsx}'], {
-      ignore: ['**/demos/**/*', '**/tests/**/*'],
+      ignore: ['**/demos/**/*', '**/tests/**/*', '**/*.spec.{ts,tsx}'],
     })
     .pipe(tsProject)
     .pipe(header(banner))
