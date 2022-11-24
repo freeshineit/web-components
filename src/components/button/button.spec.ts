@@ -1,4 +1,4 @@
-//button.spec.ts
+// button.spec.ts
 import { LitElement } from 'lit'
 import './index'
 describe('wc-button', () => {

@@ -1,10 +1,22 @@
-import { LitElement, html } from 'lit'
+import { LitElement, html, css } from 'lit'
 import { property, customElement } from 'lit/decorators.js'
-import style from './list.scss'
+
 @customElement('wc-list')
 export class WCListElement extends LitElement {
-  static styles = [style]
+  static styles = css`
+    ul,
+    li {
+      padding: 0;
+      margin: 0;
+      box-sizing: border-box;
+      list-style: none;
+    }
 
+    li {
+      height: 32px;
+      line-height: 32px;
+    }
+  `
   // converter
   @property({
     type: Array,
