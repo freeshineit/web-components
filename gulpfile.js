@@ -8,6 +8,7 @@ const through = require('through2')
 const vite = require('vite')
 const rename = require('gulp-rename')
 const header = require('gulp-header')
+const sassToString = require('./plugins/gulp-sass-to-string')
 const BundleAnalyzerPlugin =
   require('webpack-bundle-analyzer').BundleAnalyzerPlugin
 const tsconfig = require('./tsconfig.json')
@@ -72,6 +73,7 @@ function buildES() {
         plugins: [],
       })
     )
+    .pipe(sassToString())
     .pipe(header(banner))
     .pipe(gulp.dest('lib/es/'))
 }
