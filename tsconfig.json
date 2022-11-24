@@ -16,7 +16,8 @@
     "allowSyntheticDefaultImports": false,
     "esModuleInterop": true,
     "experimentalDecorators": true,
-    "forceConsistentCasingInFileNames": true
+    "forceConsistentCasingInFileNames": true,
+    "types": ["./typings", "jest", "node"]
   },
   "exclude": ["./node_modules"],
   "include": ["./src/**/*.ts", "./typings/index.d.ts"]
