@@ -79,7 +79,9 @@ module.exports = {
   moduleFileExtensions: ['js', 'jsx', 'ts', 'tsx', 'json'],
 
   // A map from regular expressions to module names or to arrays of module names that allow to stub out resources with a single module
-  // moduleNameMapper: {},
+  moduleNameMapper: {
+    '^.+\\.(css|sass|scss)$': 'identity-obj-proxy',
+  },
 
   // An array of regexp pattern strings, matched against all module paths before considered 'visible' to the module loader
   // modulePathIgnorePatterns: [],
@@ -155,6 +157,7 @@ module.exports = {
   // The regexp pattern or array of patterns that Jest uses to detect test files
   transform: {
     '^.+\\.(ts|tsx)?$': 'ts-jest',
+    '^.+\\.css$': '<rootDir>/scripts/cssTransform.js',
     '^.+\\.(js|jsx)$': [
       'babel-jest',
       {

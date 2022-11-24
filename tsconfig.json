@@ -16,10 +16,8 @@
     "allowSyntheticDefaultImports": false,
     "esModuleInterop": true,
     "experimentalDecorators": true,
-    "forceConsistentCasingInFileNames": true,
-    "typeRoots": ["node_modules", "./"],
-    "types": ["./typings"]
+    "forceConsistentCasingInFileNames": true
   },
-  "exclude": ["./node_modules", "./**/*.spec.ts"],
+  "exclude": ["./node_modules"],
   "include": ["./src/**/*.ts", "./typings/index.d.ts"]
 }
