@@ -19,32 +19,35 @@ function sassToString() {
       }
 
       if (file.isBuffer()) {
-        let arr = String(file.contents).match(
-          /import (\w+) from ['"].?\/(\w+).scss['"]/g
-        )
-
-        if (arr) {
-          arr.map(item => {
-            let itemArray = item.split(' ')
+        let flag = false
+        String(file.contents).replace(
+          /import (\w+) from ['"].?\/(\w+).scss['"]/g,
+          (subStr, index) => {
+            let itemArray = subStr.split(' ')
 
             try {
               const sassPath = path.resolve(
-                path.parse(file.path).dir,
+                path.dirname(file.path),
                 itemArray[3].replace(/^('|")|('|")$/g, '')
               )
-              // console.log(sassPath)
+
               file.contents = Buffer.from(
                 String(file.contents).replace(
-                  item,
-                  `import {css} from 'lit'
-const ${itemArray[1]} = css\`${Sass.renderSync({
-                    file: sassPath,
-                  }).css.toString()}\``
+                  subStr,
+                  `${!flag ? `import {css} from 'lit';\n` : ''}const ${
+                    itemArray[1]
+                  } = css\`${Sass.compile(sassPath)
+                    .css.toString()
+                    .replace(/\n|\t/g, '')}\``
                 )
               )
-            } catch (error) {}
-          })
-        }
+              flag = true
+            } catch (error) {
+              console.log('sass to string error: ', error)
+            }
+          }
+        )
+
         return callback(null, file)
       }
     },
