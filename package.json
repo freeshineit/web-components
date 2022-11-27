@@ -91,5 +91,8 @@
     "url": "git+https://github.com/freeshineit/web-components.git",
     "branch": "main",
     "platform": "github"
+  },
+  "engines": {
+    "node": ">=14"
   }
 }
