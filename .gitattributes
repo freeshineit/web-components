@@ -1,1 +1,2 @@
-docs/* linguist-detected=false
+docs/*.html linguist-detected=false
+docs/*.js linguist-detected=false
