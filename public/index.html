@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Web Components Demo</title>
+    <style>
+      :root {
+        color-scheme: light;
+      }
+      body {
+        margin: 0;
+        font-family: var(--wc-font-family);
+        background: var(--wc-bg);
+        color: var(--wc-text);
+      }
+      header {
+        padding: 20px 24px;
+        border-bottom: 1px solid var(--wc-border);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        background: var(--wc-surface);
+      }
+      .brand {
+        font-weight: 600;
+        letter-spacing: 0.3px;
+      }
+      .theme-buttons {
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+      }
+      main {
+        padding: 24px;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 16px;
+      }
+      .card {
+        border: 1px solid var(--wc-border);
+        border-radius: var(--wc-radius);
+        padding: 16px;
+        background: var(--wc-bg);
+        box-shadow: var(--wc-shadow);
+      }
+      .card h2 {
+        margin: 0 0 12px;
+        font-size: 16px;
+      }
+      .field {
+        display: grid;
+        gap: 6px;
+        margin-bottom: 12px;
+      }
+      .field label {
+        font-size: 13px;
+        color: var(--wc-muted);
+      }
+      .actions {
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+      }
+      .row {
+        display: flex;
+        gap: 12px;
+        align-items: center;
+        flex-wrap: wrap;
+      }
+      pre {
+        background: var(--wc-surface);
+        padding: 12px;
+        border-radius: var(--wc-radius);
+        border: 1px solid var(--wc-border);
+        font-size: 12px;
+        overflow: auto;
+      }
+    </style>
+  </head>
+  <body class="wc-theme-alpha">
+    <header>
+      <div class="brand">Web Components Demo</div>
+      <div class="theme-buttons">
+        <wc-button data-theme="alpha">Theme: Alpha</wc-button>
+        <wc-button data-theme="light">Theme: Light</wc-button>
+        <wc-button data-theme="dark">Theme: Dark</wc-button>
+      </div>
+    </header>
+
+    <main>
+      <section class="card">
+        <h2>Form</h2>
+        <wc-form id="demo-form" name="profile">
+          <div class="field">
+            <label>Name</label>
+            <wc-input name="name" placeholder="Enter your name"></wc-input>
+          </div>
+          <div class="field">
+            <label>Age</label>
+            <wc-input name="age" type="number" min="1" max="120"></wc-input>
+          </div>
+          <div class="field">
+            <label>Bio</label>
+            <wc-textarea
+              name="bio"
+              placeholder="Short intro"
+              rows="3"
+            ></wc-textarea>
+          </div>
+          <div class="field">
+            <label>City</label>
+            <wc-select
+              name="city"
+              options='[{"label":"Shanghai","value":"sh"},{"label":"Beijing","value":"bj"},{"label":"Shenzhen","value":"sz"}]'
+            ></wc-select>
+          </div>
+          <div class="field">
+            <label>Options</label>
+            <div class="row">
+              <wc-checkbox name="agree" value="yes">Agree</wc-checkbox>
+              <wc-switch name="notify"></wc-switch>
+            </div>
+          </div>
+          <div class="field">
+            <label>Plan</label>
+            <div class="row">
+              <wc-radio name="plan" value="basic">Basic</wc-radio>
+              <wc-radio name="plan" value="pro">Pro</wc-radio>
+            </div>
+          </div>
+          <div class="actions">
+            <wc-button type="submit">Submit</wc-button>
+            <wc-button type="reset">Reset</wc-button>
+          </div>
+        </wc-form>
+        <pre id="form-output">Submit the form to see values.</pre>
+      </section>
+
+      <section class="card">
+        <h2>Buttons</h2>
+        <div class="row">
+          <wc-button>Primary</wc-button>
+          <wc-button disabled>Disabled</wc-button>
+        </div>
+      </section>
+
+      <section class="card">
+        <h2>List</h2>
+        <wc-list items='["Build UI","Connect form","Ship"]'></wc-list>
+        <div style="height: 12px"></div>
+        <wc-list ordered items='["One","Two","Three"]'></wc-list>
+      </section>
+    </main>
+
+    <script src="./index.umd.js"></script>
+    <script src="./demo.js"></script>
+  </body>
+</html>

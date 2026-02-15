@@ -1,0 +1,25 @@
+import { ensureGlobalStyles } from './utils/dom'
+import { themeCss } from './styles/theme'
+import './styles/theme.scss'
+
+import './components/button'
+import './components/checkbox'
+import './components/form'
+import './components/input'
+import './components/list'
+import './components/radio'
+import './components/select'
+import './components/switch'
+import './components/textarea'
+
+ensureGlobalStyles('wc-theme', themeCss)
+
+export { WCButtonElement } from './components/button'
+export { WCCheckboxElement } from './components/checkbox'
+export { WCFormElement } from './components/form'
+export { WCInputElement } from './components/input'
+export { WCListElement } from './components/list'
+export { WCRadioElement } from './components/radio'
+export { WCSelectElement } from './components/select'
+export { WCSwitchElement } from './components/switch'
+export { WCTextareaElement } from './components/textarea'

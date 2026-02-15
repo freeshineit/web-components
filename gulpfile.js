@@ -2,18 +2,10 @@ const gulp = require('gulp')
 const babel = require('gulp-babel')
 const ts = require('gulp-typescript')
 const del = require('del')
-const webpackStream = require('webpack-stream')
-const webpack = require('webpack')
 const through = require('through2')
-const vite = require('vite')
-const rename = require('gulp-rename')
 const header = require('gulp-header')
-const sassToString = require('./plugins/gulp-sass-to-string')
-const BundleAnalyzerPlugin =
-  require('webpack-bundle-analyzer').BundleAnalyzerPlugin
 const tsconfig = require('./tsconfig.json')
 const packageJson = require('./package.json')
-const StatoscopeWebpackPlugin = require('@statoscope/webpack-plugin').default
 
 const banner = `/*
  * ${packageJson.name} ${packageJson.version}
@@ -73,7 +65,6 @@ function buildES() {
         plugins: [],
       })
     )
-    .pipe(sassToString())
     .pipe(header(banner))
     .pipe(gulp.dest('lib/es/'))
 }
@@ -93,123 +84,6 @@ function buildDeclaration() {
     .pipe(header(banner))
     .pipe(gulp.dest('lib/es/'))
     .pipe(gulp.dest('lib/cjs/'))
-}
-
-function getViteConfigForPackage({ env, formats, external }) {
-  const name = packageJson.name
-  const isProd = env === 'production'
-  return {
-    root: process.cwd(),
-    mode: env,
-    logLevel: 'silent',
-    define: { 'process.env.NODE_ENV': `"${env}"` },
-    build: {
-      cssTarget: 'chrome61',
-      lib: {
-        name: toHump(wcName),
-        entry: './lib/es/index.js',
-        formats,
-        fileName: format => `${name}.${format}${isProd ? '' : `.${env}`}.js`,
-      },
-      rollupOptions: {
-        // external,
-        output: {
-          dir: './lib/bundle',
-        },
-      },
-      minify: isProd ? 'esbuild' : false,
-    },
-  }
-}
-
-async function buildBundles(cb) {
-  const envs = ['development', 'production']
-  const configs = envs.map(env =>
-    getViteConfigForPackage({
-      env,
-      formats: ['es', 'cjs', 'umd'],
-      //   external: ['react', 'react-dom'],
-    })
-  )
-
-  await Promise.all(configs.map(config => vite.build(config)))
-  cb && cb()
-}
-
-function umdWebpack() {
-  return gulp
-    .src('lib/es/index.js')
-    .pipe(
-      webpackStream(
-        {
-          output: {
-            filename: `${wcName}.js`,
-            library: {
-              type: 'umd',
-              name: toHump(wcName),
-            },
-          },
-          mode: 'production',
-          optimization: {
-            usedExports: true,
-          },
-          performance: {
-            hints: false,
-          },
-          resolve: {
-            extensions: ['.js', '.json'],
-          },
-          plugins: [
-            new BundleAnalyzerPlugin({
-              analyzerMode: 'static',
-              openAnalyzer: false,
-              reportFilename: 'report/report.html',
-            }),
-            new StatoscopeWebpackPlugin({
-              saveReportTo: 'report/statoscope/report.html',
-              saveStatsTo: 'report/statoscope/stats.json',
-              open: false,
-            }),
-            new webpack.BannerPlugin({ banner }),
-          ],
-          module: {
-            rules: [
-              {
-                test: /\.m?js$/,
-                use: {
-                  loader: 'babel-loader',
-                  options: {
-                    'presets': [
-                      [
-                        '@babel/preset-env',
-                        {
-                          'loose': true,
-                          'modules': false,
-                          'targets': {
-                            'chrome': '49',
-                            'ios': '9',
-                          },
-                        },
-                      ],
-                      '@babel/preset-typescript',
-                    ],
-                  },
-                },
-              },
-            ],
-          },
-        },
-        webpack
-      )
-    )
-    .pipe(gulp.dest('lib/umd/'))
-}
-
-function copyUmd() {
-  return gulp
-    .src([`lib/umd/${wcName}.js`])
-    .pipe(rename(`${wcName}.compatible.umd.js`))
-    .pipe(gulp.dest('lib/bundle/'))
 }
 
 function copyMetaFiles() {
@@ -237,9 +111,6 @@ function generatePackageJSON() {
     .pipe(gulp.dest('./lib/'))
 }
 
-exports.umdWebpack = umdWebpack
-exports.buildBundles = buildBundles
-
 exports.copyPublicToDocs = function copyPublicToDocs() {
   return gulp.src(['public/**/*', '!public/index.html']).pipe(gulp.dest('docs'))
 }
@@ -250,8 +121,5 @@ exports.default = gulp.series(
   buildCJS,
   gulp.parallel(buildDeclaration),
   copyMetaFiles,
-  generatePackageJSON,
-  buildBundles,
-  umdWebpack,
-  copyUmd
+  generatePackageJSON
 )
