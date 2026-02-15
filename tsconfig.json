@@ -12,7 +12,6 @@
     "strictPropertyInitialization": false,
     "noImplicitThis": false,
     "alwaysStrict": false,
-    "moduleResolution": "node",
     "allowSyntheticDefaultImports": false,
     "esModuleInterop": true,
     "experimentalDecorators": true,

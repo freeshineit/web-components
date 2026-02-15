@@ -1,6 +1,0 @@
-import './components/button'
-export type { WCButtonElement } from './components/button'
-import './components/input'
-export type { WCInputElement } from './components/input'
-import './components/list'
-export type { WCListElement } from './components/list'
