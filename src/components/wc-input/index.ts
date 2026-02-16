@@ -80,7 +80,7 @@ export class WCInputElement extends WCBaseElement {
           font-family: var(--wc-font-family);
           color: var(--wc-text);
         }
-        .wc-input {
+        input {
           box-sizing: border-box;
           width: 100%;
           padding: 6px 10px;
@@ -90,19 +90,18 @@ export class WCInputElement extends WCBaseElement {
           color: inherit;
           transition: border-color 0.2s ease, box-shadow 0.2s ease;
         }
-        .wc-input:focus {
+        input:focus {
           outline: none;
           border-color: var(--wc-primary);
           box-shadow: 0 0 0 2px rgba(22, 119, 255, 0.15);
         }
-        .wc-input:disabled {
+        input:disabled {
           background: var(--wc-surface);
           color: var(--wc-muted);
           cursor: not-allowed;
         }
       </style>
       <input
-        class="wc-input"
         type="${type}"
         value="${value}"
         placeholder="${placeholder}"

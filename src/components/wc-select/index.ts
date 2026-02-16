@@ -98,7 +98,15 @@ export class WCSelectElement extends WCBaseElement {
           border-radius: var(--wc-radius);
           background: var(--wc-bg);
           color: inherit;
+          transition: border-color 0.2s ease, box-shadow 0.2s ease;
         }
+
+        select:focus {
+          outline: none;
+          border-color: var(--wc-primary);
+          box-shadow: 0 0 0 2px rgba(22, 119, 255, 0.15);
+        }
+
         select:disabled {
           background: var(--wc-surface);
           color: var(--wc-muted);

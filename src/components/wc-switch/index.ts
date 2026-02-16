@@ -64,7 +64,7 @@ export class WCSwitchElement extends WCBaseElement {
           transition: background 0.2s ease;
           cursor: pointer;
         }
-        .knob {
+        .wc-switch-knob {
           position: absolute;
           top: 2px;
           left: 2px;
@@ -78,7 +78,7 @@ export class WCSwitchElement extends WCBaseElement {
         :host([checked]) .wc-switch {
           background: var(--wc-primary);
         }
-        :host([checked]) .knob {
+        :host([checked]) .wc-switch-knob {
           left: 18px;
         }
         input {
@@ -96,7 +96,7 @@ export class WCSwitchElement extends WCBaseElement {
         <input type="checkbox" ${checked ? 'checked' : ''} ${
           disabled ? 'disabled' : ''
         } ${name ? `name="${name}"` : ''} />
-        <span class="knob"></span>
+        <span class="wc-switch-knob"></span>
       </label>
     `
   }

@@ -62,7 +62,7 @@ export class WCTextareaElement extends WCBaseElement {
           font-family: var(--wc-font-family);
           color: var(--wc-text);
         }
-        .textarea {
+        textarea {
           box-sizing: border-box;
           width: 100%;
           padding: 6px 10px;
@@ -73,19 +73,18 @@ export class WCTextareaElement extends WCBaseElement {
           transition: border-color 0.2s ease, box-shadow 0.2s ease;
           resize: vertical;
         }
-        .textarea:focus {
+        textarea:focus {
           outline: none;
           border-color: var(--wc-primary);
           box-shadow: 0 0 0 2px rgba(22, 119, 255, 0.15);
         }
-        .textarea:disabled {
+        textarea:disabled {
           background: var(--wc-surface);
           color: var(--wc-muted);
           cursor: not-allowed;
         }
       </style>
       <textarea
-        class="textarea"
         rows="${rows}"
         placeholder="${placeholder}"
         ${disabled ? 'disabled' : ''}
