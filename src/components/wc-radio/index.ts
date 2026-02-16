@@ -1,9 +1,5 @@
-import { WCBaseElement } from '../../core/base-element'
-import {
-  getBooleanAttr,
-  getStringAttr,
-  setBooleanAttr,
-} from '../../utils/attrs'
+import { WCBaseElement } from '@/core/base-element'
+import { getBooleanAttr, getStringAttr, setBooleanAttr } from '@/utils/attrs'
 
 export class WCRadioElement extends WCBaseElement {
   static get observedAttributes() {

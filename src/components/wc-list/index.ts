@@ -1,5 +1,5 @@
-import { WCBaseElement } from '../../core/base-element'
-import { getBooleanAttr, getStringAttr } from '../../utils/attrs'
+import { WCBaseElement } from '@/core/base-element'
+import { getBooleanAttr, getStringAttr } from '@/utils/attrs'
 
 type ListItem = { label: string; value?: string }
 

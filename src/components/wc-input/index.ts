@@ -1,5 +1,5 @@
-import { WCBaseElement } from '../../core/base-element'
-import { getBooleanAttr, getNumberAttr, getStringAttr } from '../../utils/attrs'
+import { WCBaseElement } from '@/core/base-element'
+import { getBooleanAttr, getNumberAttr, getStringAttr } from '@/utils/attrs'
 
 export class WCInputElement extends WCBaseElement {
   static get observedAttributes() {

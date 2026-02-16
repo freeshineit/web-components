@@ -1,16 +1,18 @@
 import commonjs from '@rollup/plugin-commonjs'
-import resolve from '@rollup/plugin-node-resolve'
+import nodeResolve from '@rollup/plugin-node-resolve'
 import swc from '@rollup/plugin-swc'
 import { babel } from '@rollup/plugin-babel'
 import serve from 'rollup-plugin-serve'
 import { dts } from 'rollup-plugin-dts'
 import eslint from '@rollup/plugin-eslint'
+import alias from '@rollup/plugin-alias'
 import strip from '@rollup/plugin-strip'
 import replace from '@rollup/plugin-replace'
 import dayjs from 'dayjs'
 import postcss from 'rollup-plugin-postcss'
 import copy from 'rollup-plugin-copy'
 import autoprefixer from 'autoprefixer'
+import { resolve } from 'node:path'
 import fs from 'fs'
 
 const pkg = JSON.parse(fs.readFileSync('./package.json', 'utf-8'))
@@ -125,6 +127,15 @@ function generateConfig(pkg, configs) {
         //   ],
         //   exclude: ['node_modules/**', '**/__tests__/**'],
         // }),
+        // 需要和 tsconfig.json 配置 paths 一致
+        alias({
+          entries: [
+            {
+              find: /^@\/(.*)/,
+              replacement: resolve(process.cwd(), 'src/$1'),
+            },
+          ],
+        }),
         swc({
           // https://swc.rs/docs/configuration/swcrc
           swc: {
@@ -134,7 +145,7 @@ function generateConfig(pkg, configs) {
           },
           include: ['./src/**/*.{ts,js,mjs,tsx,jsx}'],
         }),
-        resolve({
+        nodeResolve({
           extensions: ['.js', '.jsx', '.mjs', '.ts', '.tsx', '.json'],
         }),
         commonjs({
@@ -218,7 +229,18 @@ function generateConfig(pkg, configs) {
     {
       input,
       output: [{ file: 'dist/types/index.d.ts', format: 'es' }],
-      plugins: [dts()],
+      plugins: [
+        alias({
+          entries: [
+            {
+              find: /^@\/(.*)/,
+              replacement: resolve(process.cwd(), 'src/$1'),
+            },
+          ],
+        }),
+        ,
+        dts(),
+      ],
       external: [/\.(css|less|scss|sass)$/],
     },
     ...(configs || []),
