@@ -11,7 +11,7 @@ export class WCRadioElement extends WCBaseElement {
   }
 
   private get inputEl(): HTMLInputElement | null {
-    return this.shadow.querySelector('input')
+    return this.shadow.querySelector('input[type="radio"]')
   }
 
   get checked(): boolean {
@@ -20,6 +20,8 @@ export class WCRadioElement extends WCBaseElement {
 
   set checked(next: boolean) {
     setBooleanAttr(this, 'checked', next)
+    const input = this.inputEl
+    if (input) input.checked = next
   }
 
   protected onAttrChange(name: string) {
@@ -50,32 +52,117 @@ export class WCRadioElement extends WCBaseElement {
 
     return `
       <style>
-        :host {
-          display: inline-flex;
-          align-items: center;
-          gap: 6px;
-          font-family: var(--wc-font-family);
-          color: var(--wc-text);
-          cursor: pointer;
-        }
-        input {
-          width: 16px;
-          height: 16px;
-          accent-color: var(--wc-primary);
-        }
-        :host([disabled]) {
-          cursor: not-allowed;
-          color: var(--wc-muted);
-        }
+      
+      :host {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--wc-font-family);
+  color: var(--wc-text);
+  cursor: pointer;
+  user-select: none;
+}
+
+label {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+}
+
+.radio-wrapper {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+}
+
+input[type='radio'] {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+  margin: 0;
+  padding: 0;
+  cursor: inherit;
+}
+
+.radio-box {
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  border: 2px solid var(--wc-border);
+  border-radius: 50%;
+  background: var(--wc-bg);
+  transition: all 0.2s ease;
+  pointer-events: none;
+}
+
+input[type='radio']:checked + .radio-box {
+  border-color: var(--wc-primary);
+  background: var(--wc-primary);
+}
+
+.radio-dot {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  background: #fff;
+  border-radius: 50%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+input[type='radio']:checked + .radio-box .radio-dot {
+  opacity: 1;
+}
+
+input[type='radio']:focus + .radio-box {
+  box-shadow: 0 0 0 3px rgba(22, 119, 255, 0.15);
+  outline: none;
+}
+
+input[type='radio']:disabled + .radio-box {
+  border-color: var(--wc-border);
+  background: var(--wc-surface);
+  cursor: not-allowed;
+}
+
+input[type='radio']:disabled:checked + .radio-box {
+  background: var(--wc-muted);
+  border-color: var(--wc-muted);
+}
+
+:host([disabled]) {
+  cursor: not-allowed;
+}
+
+:host([disabled]) label {
+  cursor: not-allowed;
+  color: var(--wc-muted);
+}
+
+      
       </style>
       <label>
-        <input
-          type="radio"
-          ${checked ? 'checked' : ''}
-          ${disabled ? 'disabled' : ''}
-          ${name ? `name="${name}"` : ''}
-          value="${value}"
-        />
+        <div class="radio-wrapper">
+          <input
+            type="radio"
+            ${checked ? 'checked' : ''}
+            ${disabled ? 'disabled' : ''}
+            ${name ? `name="${name}"` : ''}
+            value="${value}"
+          />
+          <div class="radio-box">
+            <div class="radio-dot"></div>
+          </div>
+        </div>
         <slot></slot>
       </label>
     `
@@ -85,34 +172,69 @@ export class WCRadioElement extends WCBaseElement {
     const input = this.inputEl
     if (!input) return
 
-    input.addEventListener('change', () => {
-      if (input.checked) {
-        this.uncheckSiblings()
-      }
-      setBooleanAttr(this, 'checked', input.checked)
-      this.emit('change', {
-        name: getStringAttr(this, 'name', ''),
-        value: getStringAttr(this, 'value', 'on'),
-        checked: input.checked,
-        type: 'radio',
-      })
+    // Remove old listeners to prevent duplicates
+    input.removeEventListener('change', this.handleChange)
+    input.removeEventListener('click', this.handleClick)
+
+    input.addEventListener('change', this.handleChange)
+    input.addEventListener('click', this.handleClick)
+  }
+
+  private handleChange = () => {
+    const input = this.inputEl
+    if (!input) return
+
+    // Always update checked state
+    setBooleanAttr(this, 'checked', input.checked)
+
+    if (input.checked) {
+      this.uncheckSiblings()
+    }
+
+    this.emit('change', {
+      name: getStringAttr(this, 'name', ''),
+      value: getStringAttr(this, 'value', 'on'),
+      checked: input.checked,
+      type: 'radio',
     })
+  }
+
+  private handleClick = () => {
+    const input = this.inputEl
+    if (!input || input.disabled) return
+
+    // Ensure checked state is reflected in attribute for consistency
+    if (input.checked) {
+      setBooleanAttr(this, 'checked', true)
+    }
   }
 
   private uncheckSiblings() {
     const name = getStringAttr(this, 'name', '')
     if (!name) return
+
     const root = this.getRootNode() as Document | ShadowRoot
     const radios = root.querySelectorAll('wc-radio')
+
     radios.forEach(node => {
       if (node !== this && node.getAttribute('name') === name) {
         node.removeAttribute('checked')
         const input = node.shadowRoot?.querySelector(
-          'input'
+          'input[type="radio"]'
         ) as HTMLInputElement | null
-        if (input) input.checked = false
+        if (input) {
+          input.checked = false
+        }
       }
     })
+  }
+
+  disconnectedCallback() {
+    const input = this.inputEl
+    if (input) {
+      input.removeEventListener('change', this.handleChange)
+      input.removeEventListener('click', this.handleClick)
+    }
   }
 }
 
