@@ -94,7 +94,7 @@ input[type='radio'] {
   position: absolute;
   width: 16px;
   height: 16px;
-  border: 2px solid var(--wc-border);
+  border: 1px solid var(--wc-border);
   border-radius: 50%;
   background: var(--wc-bg);
   transition: all 0.2s ease;
