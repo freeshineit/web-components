@@ -65,6 +65,9 @@ devDependencies:
   '@types/jest':
     specifier: ^30.0.0
     version: 30.0.0
+  '@types/node':
+    specifier: ^25.2.3
+    version: 25.2.3
   autoprefixer:
     specifier: ^10.4.21
     version: 10.4.24(postcss@8.5.6)

@@ -2,6 +2,7 @@
   "compilerOptions": {
     "target": "es2015",
     "module": "commonjs",
+    "lib": ["ES2015", "ES5", "DOM", "ES2018"],
     "checkJs": false,
     "rootDir": "./",
     "strict": false,
