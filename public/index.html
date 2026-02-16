@@ -49,7 +49,8 @@
         margin: 0 0 12px;
         font-size: 16px;
       }
-      .field {
+      .field,
+      .control {
         display: grid;
         gap: 6px;
         margin-bottom: 12px;
@@ -57,6 +58,28 @@
       .field label {
         font-size: 13px;
         color: var(--wc-muted);
+      }
+      .control label {
+        font-size: 12px;
+        color: var(--wc-muted);
+      }
+      .control input,
+      .control select,
+      .control textarea {
+        padding: 6px 8px;
+        border: 1px solid var(--wc-border);
+        border-radius: 6px;
+        font-size: 12px;
+        background: var(--wc-bg);
+        color: var(--wc-text);
+      }
+      .control input[type='checkbox'] {
+        width: auto;
+        padding: 0;
+      }
+      .controls {
+        display: grid;
+        gap: 8px;
       }
       .actions {
         display: flex;
@@ -86,11 +109,232 @@
         <wc-button data-theme="alpha">Theme: Alpha</wc-button>
         <wc-button data-theme="light">Theme: Light</wc-button>
         <wc-button data-theme="dark">Theme: Dark</wc-button>
-        <button data-theme="dark">Theme: Dark</button>
       </div>
     </header>
 
     <main>
+      <section class="card">
+        <h2>Button</h2>
+        <div class="row">
+          <wc-button id="demo-button">Primary</wc-button>
+        </div>
+        <div class="controls">
+          <div class="control">
+            <label for="button-label">Label</label>
+            <input id="button-label" type="text" value="Primary" />
+          </div>
+          <div class="control">
+            <label for="button-type">Type</label>
+            <select id="button-type">
+              <option value="button" selected>button</option>
+              <option value="submit">submit</option>
+              <option value="reset">reset</option>
+            </select>
+          </div>
+          <div class="control">
+            <label>
+              <input id="button-disabled" type="checkbox" /> Disabled
+            </label>
+          </div>
+        </div>
+      </section>
+
+      <section class="card">
+        <h2>Input</h2>
+        <wc-input id="demo-input" placeholder="Type here"></wc-input>
+        <div class="controls">
+          <div class="control">
+            <label for="input-value">Value</label>
+            <input id="input-value" type="text" />
+          </div>
+          <div class="control">
+            <label for="input-placeholder">Placeholder</label>
+            <input id="input-placeholder" type="text" value="Type here" />
+          </div>
+          <div class="control">
+            <label for="input-type">Type</label>
+            <select id="input-type">
+              <option value="text" selected>text</option>
+              <option value="number">number</option>
+            </select>
+          </div>
+          <div class="control">
+            <label for="input-min">Min</label>
+            <input id="input-min" type="number" />
+          </div>
+          <div class="control">
+            <label for="input-max">Max</label>
+            <input id="input-max" type="number" />
+          </div>
+          <div class="control">
+            <label for="input-step">Step</label>
+            <input id="input-step" type="number" />
+          </div>
+          <div class="control">
+            <label>
+              <input id="input-disabled" type="checkbox" /> Disabled
+            </label>
+          </div>
+          <div class="control">
+            <label>
+              <input id="input-readonly" type="checkbox" /> Readonly
+            </label>
+          </div>
+        </div>
+        <pre id="input-output">Change to see events.</pre>
+      </section>
+
+      <section class="card">
+        <h2>Textarea</h2>
+        <wc-textarea
+          id="demo-textarea"
+          placeholder="Write something"
+          rows="3"
+        ></wc-textarea>
+        <div class="controls">
+          <div class="control">
+            <label for="textarea-value">Value</label>
+            <textarea id="textarea-value" rows="2"></textarea>
+          </div>
+          <div class="control">
+            <label for="textarea-placeholder">Placeholder</label>
+            <input
+              id="textarea-placeholder"
+              type="text"
+              value="Write something"
+            />
+          </div>
+          <div class="control">
+            <label for="textarea-rows">Rows</label>
+            <input id="textarea-rows" type="number" value="3" />
+          </div>
+          <div class="control">
+            <label>
+              <input id="textarea-disabled" type="checkbox" /> Disabled
+            </label>
+          </div>
+          <div class="control">
+            <label>
+              <input id="textarea-readonly" type="checkbox" /> Readonly
+            </label>
+          </div>
+        </div>
+        <pre id="textarea-output">Change to see events.</pre>
+      </section>
+
+      <section class="card">
+        <h2>Checkbox</h2>
+        <wc-checkbox id="demo-checkbox" value="yes">Agree</wc-checkbox>
+        <div class="controls">
+          <div class="control">
+            <label>
+              <input id="checkbox-checked" type="checkbox" /> Checked
+            </label>
+          </div>
+          <div class="control">
+            <label>
+              <input id="checkbox-disabled" type="checkbox" /> Disabled
+            </label>
+          </div>
+        </div>
+        <pre id="checkbox-output">Change to see events.</pre>
+      </section>
+
+      <section class="card">
+        <h2>Radio</h2>
+        <div class="row">
+          <wc-radio name="demo-plan" value="basic" id="demo-radio-basic"
+            >Basic</wc-radio
+          >
+          <wc-radio name="demo-plan" value="pro" id="demo-radio-pro"
+            >Pro</wc-radio
+          >
+        </div>
+        <div class="controls">
+          <div class="control">
+            <label for="radio-selected">Selected</label>
+            <select id="radio-selected">
+              <option value="">None</option>
+              <option value="basic">Basic</option>
+              <option value="pro">Pro</option>
+            </select>
+          </div>
+          <div class="control">
+            <label>
+              <input id="radio-disabled" type="checkbox" /> Disabled
+            </label>
+          </div>
+        </div>
+        <pre id="radio-output">Change to see events.</pre>
+      </section>
+
+      <section class="card">
+        <h2>Select</h2>
+        <wc-select
+          id="demo-select"
+          options='["Alpha","Beta","Gamma"]'
+        ></wc-select>
+        <div class="controls">
+          <div class="control">
+            <label for="select-options">Options (comma or JSON)</label>
+            <input
+              id="select-options"
+              type="text"
+              value='["Alpha","Beta","Gamma"]'
+            />
+          </div>
+          <div class="control">
+            <label for="select-value">Value</label>
+            <input id="select-value" type="text" />
+          </div>
+          <div class="control">
+            <label>
+              <input id="select-disabled" type="checkbox" /> Disabled
+            </label>
+          </div>
+        </div>
+        <pre id="select-output">Change to see events.</pre>
+      </section>
+
+      <section class="card">
+        <h2>Switch</h2>
+        <wc-switch id="demo-switch"></wc-switch>
+        <div class="controls">
+          <div class="control">
+            <label>
+              <input id="switch-checked" type="checkbox" /> Checked
+            </label>
+          </div>
+          <div class="control">
+            <label>
+              <input id="switch-disabled" type="checkbox" /> Disabled
+            </label>
+          </div>
+        </div>
+        <pre id="switch-output">Change to see events.</pre>
+      </section>
+
+      <section class="card">
+        <h2>List</h2>
+        <wc-list
+          id="demo-list"
+          items='["Build UI","Connect form","Ship"]'
+        ></wc-list>
+        <div class="controls">
+          <div class="control">
+            <label for="list-items">Items (comma or JSON)</label>
+            <input
+              id="list-items"
+              type="text"
+              value='["Build UI","Connect form","Ship"]'
+            />
+          </div>
+          <div class="control">
+            <label> <input id="list-ordered" type="checkbox" /> Ordered </label>
+          </div>
+        </div>
+      </section>
+
       <section class="card">
         <h2>Form</h2>
         <wc-form id="demo-form" name="profile">
@@ -137,21 +381,6 @@
           </div>
         </wc-form>
         <pre id="form-output">Submit the form to see values.</pre>
-      </section>
-
-      <section class="card">
-        <h2>Buttons</h2>
-        <div class="row">
-          <wc-button>Primary</wc-button>
-          <wc-button disabled>Disabled</wc-button>
-        </div>
-      </section>
-
-      <section class="card">
-        <h2>List</h2>
-        <wc-list items='["Build UI","Connect form","Ship"]'></wc-list>
-        <div style="height: 12px"></div>
-        <wc-list ordered items='["One","Two","Three"]'></wc-list>
       </section>
     </main>
 
