@@ -1,5 +1,5 @@
-import { WCBaseElement } from '../core/base-element'
-import { getStringAttr } from '../utils/attrs'
+import { WCBaseElement } from '../../core/base-element'
+import { getStringAttr } from '../../utils/attrs'
 
 type FormValues = Record<string, unknown>
 

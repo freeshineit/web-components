@@ -1,9 +1,13 @@
-import { WCBaseElement } from '../core/base-element'
-import { getBooleanAttr, getStringAttr, setBooleanAttr } from '../utils/attrs'
+import { WCBaseElement } from '../../core/base-element'
+import {
+  getBooleanAttr,
+  getStringAttr,
+  setBooleanAttr,
+} from '../../utils/attrs'
 
-export class WCSwitchElement extends WCBaseElement {
+export class WCCheckboxElement extends WCBaseElement {
   static get observedAttributes() {
-    return ['checked', 'disabled', 'name']
+    return ['checked', 'disabled', 'name', 'value']
   }
 
   private get inputEl(): HTMLInputElement | null {
@@ -42,57 +46,37 @@ export class WCSwitchElement extends WCBaseElement {
     const checked = getBooleanAttr(this, 'checked')
     const disabled = getBooleanAttr(this, 'disabled')
     const name = getStringAttr(this, 'name', '')
+    const value = getStringAttr(this, 'value', 'on')
 
     return `
       <style>
         :host {
           display: inline-flex;
           align-items: center;
+          gap: 6px;
           font-family: var(--wc-font-family);
           color: var(--wc-text);
-        }
-        .switch {
-          position: relative;
-          width: 36px;
-          height: 20px;
-          border-radius: 12px;
-          background: var(--wc-border);
-          transition: background 0.2s ease;
           cursor: pointer;
         }
-        .knob {
-          position: absolute;
-          top: 2px;
-          left: 2px;
+        input {
           width: 16px;
           height: 16px;
-          background: #fff;
-          border-radius: 50%;
-          transition: left 0.2s ease;
-          box-shadow: var(--wc-shadow);
+          accent-color: var(--wc-primary);
         }
-        :host([checked]) .switch {
-          background: var(--wc-primary);
-        }
-        :host([checked]) .knob {
-          left: 18px;
-        }
-        input {
-          position: absolute;
-          opacity: 0;
-          width: 0;
-          height: 0;
-        }
-        :host([disabled]) .switch {
+        :host([disabled]) {
           cursor: not-allowed;
-          background: var(--wc-surface);
+          color: var(--wc-muted);
         }
       </style>
-      <label class="switch">
-        <input type="checkbox" ${checked ? 'checked' : ''} ${
-          disabled ? 'disabled' : ''
-        } ${name ? `name="${name}"` : ''} />
-        <span class="knob"></span>
+      <label>
+        <input
+          type="checkbox"
+          ${checked ? 'checked' : ''}
+          ${disabled ? 'disabled' : ''}
+          ${name ? `name="${name}"` : ''}
+          value="${value}"
+        />
+        <slot></slot>
       </label>
     `
   }
@@ -105,11 +89,12 @@ export class WCSwitchElement extends WCBaseElement {
       setBooleanAttr(this, 'checked', input.checked)
       this.emit('change', {
         name: getStringAttr(this, 'name', ''),
+        value: getStringAttr(this, 'value', 'on'),
         checked: input.checked,
-        type: 'switch',
+        type: 'checkbox',
       })
     })
   }
 }
 
-customElements.define('wc-switch', WCSwitchElement)
+customElements.define('wc-checkbox', WCCheckboxElement)

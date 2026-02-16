@@ -1,9 +1,13 @@
-import { WCBaseElement } from '../core/base-element'
-import { getBooleanAttr, getStringAttr, setBooleanAttr } from '../utils/attrs'
+import { WCBaseElement } from '../../core/base-element'
+import {
+  getBooleanAttr,
+  getStringAttr,
+  setBooleanAttr,
+} from '../../utils/attrs'
 
-export class WCRadioElement extends WCBaseElement {
+export class WCSwitchElement extends WCBaseElement {
   static get observedAttributes() {
-    return ['checked', 'disabled', 'name', 'value']
+    return ['checked', 'disabled', 'name']
   }
 
   private get inputEl(): HTMLInputElement | null {
@@ -42,37 +46,57 @@ export class WCRadioElement extends WCBaseElement {
     const checked = getBooleanAttr(this, 'checked')
     const disabled = getBooleanAttr(this, 'disabled')
     const name = getStringAttr(this, 'name', '')
-    const value = getStringAttr(this, 'value', 'on')
 
     return `
       <style>
         :host {
           display: inline-flex;
           align-items: center;
-          gap: 6px;
           font-family: var(--wc-font-family);
           color: var(--wc-text);
+        }
+        .wc-switch {
+          position: relative;
+          width: 36px;
+          height: 20px;
+          border-radius: 12px;
+          background: var(--wc-border);
+          transition: background 0.2s ease;
           cursor: pointer;
         }
-        input {
+        .knob {
+          position: absolute;
+          top: 2px;
+          left: 2px;
           width: 16px;
           height: 16px;
-          accent-color: var(--wc-primary);
+          background: #fff;
+          border-radius: 50%;
+          transition: left 0.2s ease;
+          box-shadow: var(--wc-shadow);
         }
-        :host([disabled]) {
+        :host([checked]) .wc-switch {
+          background: var(--wc-primary);
+        }
+        :host([checked]) .knob {
+          left: 18px;
+        }
+        input {
+          position: absolute;
+          opacity: 0;
+          width: 100%;
+          height: 100%;
+        }
+        :host([disabled]) .wc-switch {
           cursor: not-allowed;
-          color: var(--wc-muted);
+          background: var(--wc-surface);
         }
       </style>
-      <label>
-        <input
-          type="radio"
-          ${checked ? 'checked' : ''}
-          ${disabled ? 'disabled' : ''}
-          ${name ? `name="${name}"` : ''}
-          value="${value}"
-        />
-        <slot></slot>
+      <label class="wc-switch">
+        <input type="checkbox" ${checked ? 'checked' : ''} ${
+          disabled ? 'disabled' : ''
+        } ${name ? `name="${name}"` : ''} />
+        <span class="knob"></span>
       </label>
     `
   }
@@ -82,34 +106,14 @@ export class WCRadioElement extends WCBaseElement {
     if (!input) return
 
     input.addEventListener('change', () => {
-      if (input.checked) {
-        this.uncheckSiblings()
-      }
       setBooleanAttr(this, 'checked', input.checked)
       this.emit('change', {
         name: getStringAttr(this, 'name', ''),
-        value: getStringAttr(this, 'value', 'on'),
         checked: input.checked,
-        type: 'radio',
+        type: 'switch',
       })
-    })
-  }
-
-  private uncheckSiblings() {
-    const name = getStringAttr(this, 'name', '')
-    if (!name) return
-    const root = this.getRootNode() as Document | ShadowRoot
-    const radios = root.querySelectorAll('wc-radio')
-    radios.forEach(node => {
-      if (node !== this && node.getAttribute('name') === name) {
-        node.removeAttribute('checked')
-        const input = node.shadowRoot?.querySelector(
-          'input'
-        ) as HTMLInputElement | null
-        if (input) input.checked = false
-      }
     })
   }
 }
 
-customElements.define('wc-radio', WCRadioElement)
+customElements.define('wc-switch', WCSwitchElement)

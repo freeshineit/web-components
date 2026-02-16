@@ -1,7 +1,11 @@
-import { WCBaseElement } from '../core/base-element'
-import { getBooleanAttr, getStringAttr, setBooleanAttr } from '../utils/attrs'
+import { WCBaseElement } from '../../core/base-element'
+import {
+  getBooleanAttr,
+  getStringAttr,
+  setBooleanAttr,
+} from '../../utils/attrs'
 
-export class WCCheckboxElement extends WCBaseElement {
+export class WCRadioElement extends WCBaseElement {
   static get observedAttributes() {
     return ['checked', 'disabled', 'name', 'value']
   }
@@ -66,7 +70,7 @@ export class WCCheckboxElement extends WCBaseElement {
       </style>
       <label>
         <input
-          type="checkbox"
+          type="radio"
           ${checked ? 'checked' : ''}
           ${disabled ? 'disabled' : ''}
           ${name ? `name="${name}"` : ''}
@@ -82,15 +86,34 @@ export class WCCheckboxElement extends WCBaseElement {
     if (!input) return
 
     input.addEventListener('change', () => {
+      if (input.checked) {
+        this.uncheckSiblings()
+      }
       setBooleanAttr(this, 'checked', input.checked)
       this.emit('change', {
         name: getStringAttr(this, 'name', ''),
         value: getStringAttr(this, 'value', 'on'),
         checked: input.checked,
-        type: 'checkbox',
+        type: 'radio',
       })
+    })
+  }
+
+  private uncheckSiblings() {
+    const name = getStringAttr(this, 'name', '')
+    if (!name) return
+    const root = this.getRootNode() as Document | ShadowRoot
+    const radios = root.querySelectorAll('wc-radio')
+    radios.forEach(node => {
+      if (node !== this && node.getAttribute('name') === name) {
+        node.removeAttribute('checked')
+        const input = node.shadowRoot?.querySelector(
+          'input'
+        ) as HTMLInputElement | null
+        if (input) input.checked = false
+      }
     })
   }
 }
 
-customElements.define('wc-checkbox', WCCheckboxElement)
+customElements.define('wc-radio', WCRadioElement)

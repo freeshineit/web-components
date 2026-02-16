@@ -1,5 +1,5 @@
-import { WCBaseElement } from '../core/base-element'
-import { getBooleanAttr, getStringAttr } from '../utils/attrs'
+import { WCBaseElement } from '../../core/base-element'
+import { getBooleanAttr, getStringAttr } from '../../utils/attrs'
 
 type ListItem = { label: string; value?: string }
 
@@ -43,7 +43,8 @@ export class WCListElement extends WCBaseElement {
           ul,
           ol {
             margin: 0;
-            padding: 0 0 0 18px;
+            list-style: none;
+            padding: 0;
           }
         </style>
         <${tag}><slot></slot></${tag}>
@@ -61,7 +62,8 @@ export class WCListElement extends WCBaseElement {
         ul,
         ol {
           margin: 0;
-          padding: 0 0 0 18px;
+          padding: 0;
+          list-style: none;
         }
         li {
           padding: 4px 0;

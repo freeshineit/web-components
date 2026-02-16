@@ -1,5 +1,5 @@
-import { WCBaseElement } from '../core/base-element'
-import { getBooleanAttr, getStringAttr } from '../utils/attrs'
+import { WCBaseElement } from '../../core/base-element'
+import { getBooleanAttr, getStringAttr } from '../../utils/attrs'
 
 type SelectOption = { label: string; value: string }
 
@@ -88,6 +88,9 @@ export class WCSelectElement extends WCBaseElement {
           color: var(--wc-text);
         }
         select {
+          -webkit-appearance: none; /* for Safari/Chrome (WebKit) */
+          -moz-appearance: none;    /* for Firefox */
+          appearance: none;
           box-sizing: border-box;
           width: 100%;
           padding: 6px 10px;
