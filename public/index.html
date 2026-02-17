@@ -121,19 +121,24 @@
         <div class="controls">
           <div class="control">
             <label for="button-label">Label</label>
-            <input id="button-label" type="text" value="Primary" />
+            <wc-input
+              id="button-label"
+              type="text"
+              value="Primary"
+              placeholder="default Button"
+            />
           </div>
           <div class="control">
             <label for="button-type">Type</label>
-            <select id="button-type">
-              <option value="button" selected>button</option>
-              <option value="submit">submit</option>
-              <option value="reset">reset</option>
-            </select>
+            <wc-select id="button-type">
+              <wc-option value="button" selected>button</wc-option>
+              <wc-option value="submit">submit</wc-option>
+              <wc-option value="reset">reset</wc-option>
+            </wc-select>
           </div>
           <div class="control">
             <label>
-              <input id="button-disabled" type="checkbox" /> Disabled
+              <wc-checkbox id="button-disabled">Disabled</wc-checkbox>
             </label>
           </div>
         </div>
@@ -145,39 +150,43 @@
         <div class="controls">
           <div class="control">
             <label for="input-value">Value</label>
-            <input id="input-value" type="text" />
+            <wc-input id="input-value" type="text"></wc-input>
           </div>
           <div class="control">
             <label for="input-placeholder">Placeholder</label>
-            <input id="input-placeholder" type="text" value="Type here" />
+            <wc-input
+              id="input-placeholder"
+              type="text"
+              value="Type here"
+            ></wc-input>
           </div>
           <div class="control">
             <label for="input-type">Type</label>
-            <select id="input-type">
-              <option value="text" selected>text</option>
-              <option value="number">number</option>
-            </select>
+            <wc-select id="input-type">
+              <wc-option value="text" selected>text</wc-option>
+              <wc-option value="number">number</wc-option>
+            </wc-select>
           </div>
           <div class="control">
             <label for="input-min">Min</label>
-            <input id="input-min" type="number" />
+            <wc-input id="input-min" type="number"></wc-input>
           </div>
           <div class="control">
             <label for="input-max">Max</label>
-            <input id="input-max" type="number" />
+            <wc-input id="input-max" type="number"></wc-input>
           </div>
           <div class="control">
             <label for="input-step">Step</label>
-            <input id="input-step" type="number" />
+            <wc-input id="input-step" type="number"></wc-input>
           </div>
           <div class="control">
             <label>
-              <input id="input-disabled" type="checkbox" /> Disabled
+              <wc-checkbox id="input-disabled">Disabled</wc-checkbox>
             </label>
           </div>
           <div class="control">
             <label>
-              <input id="input-readonly" type="checkbox" /> Readonly
+              <wc-checkbox id="input-readonly">Readonly</wc-checkbox>
             </label>
           </div>
         </div>
@@ -194,28 +203,28 @@
         <div class="controls">
           <div class="control">
             <label for="textarea-value">Value</label>
-            <textarea id="textarea-value" rows="2"></textarea>
+            <wc-textarea id="textarea-value" rows="2"></wc-textarea>
           </div>
           <div class="control">
             <label for="textarea-placeholder">Placeholder</label>
-            <input
+            <wc-input
               id="textarea-placeholder"
               type="text"
               value="Write something"
-            />
+            ></wc-input>
           </div>
           <div class="control">
             <label for="textarea-rows">Rows</label>
-            <input id="textarea-rows" type="number" value="3" />
+            <wc-input id="textarea-rows" type="number" value="3"></wc-input>
           </div>
           <div class="control">
             <label>
-              <input id="textarea-disabled" type="checkbox" /> Disabled
+              <wc-checkbox id="textarea-disabled">Disabled</wc-checkbox>
             </label>
           </div>
           <div class="control">
             <label>
-              <input id="textarea-readonly" type="checkbox" /> Readonly
+              <wc-checkbox id="textarea-readonly">Readonly</wc-checkbox>
             </label>
           </div>
         </div>
@@ -228,12 +237,12 @@
         <div class="controls">
           <div class="control">
             <label>
-              <input id="checkbox-checked" type="checkbox" /> Checked
+              <wc-checkbox id="checkbox-checked">Checked</wc-checkbox>
             </label>
           </div>
           <div class="control">
             <label>
-              <input id="checkbox-disabled" type="checkbox" /> Disabled
+              <wc-checkbox id="checkbox-disabled">Disabled</wc-checkbox>
             </label>
           </div>
         </div>
@@ -253,15 +262,14 @@
         <div class="controls">
           <div class="control">
             <label for="radio-selected">Selected</label>
-            <select id="radio-selected">
-              <option value="">None</option>
-              <option value="basic">Basic</option>
-              <option value="pro">Pro</option>
-            </select>
+            <wc-select
+              id="radio-selected"
+              options='["None","Basic","Pro"]'
+            ></wc-select>
           </div>
           <div class="control">
             <label>
-              <input id="radio-disabled" type="checkbox" /> Disabled
+              <wc-checkbox id="radio-disabled">Disabled</wc-checkbox>
             </label>
           </div>
         </div>
@@ -277,19 +285,19 @@
         <div class="controls">
           <div class="control">
             <label for="select-options">Options (comma or JSON)</label>
-            <input
+            <wc-input
               id="select-options"
               type="text"
               value='["Alpha","Beta","Gamma"]'
-            />
+            ></wc-input>
           </div>
           <div class="control">
             <label for="select-value">Value</label>
-            <input id="select-value" type="text" />
+            <wc-input id="select-value" type="text"></wc-input>
           </div>
           <div class="control">
             <label>
-              <input id="select-disabled" type="checkbox" /> Disabled
+              <wc-checkbox id="select-disabled">Disabled</wc-checkbox>
             </label>
           </div>
         </div>
@@ -302,12 +310,12 @@
         <div class="controls">
           <div class="control">
             <label>
-              <input id="switch-checked" type="checkbox" /> Checked
+              <wc-switch id="switch-checked">Checked</wc-switch>
             </label>
           </div>
           <div class="control">
             <label>
-              <input id="switch-disabled" type="checkbox" /> Disabled
+              <wc-switch id="switch-disabled">Disabled</wc-switch>
             </label>
           </div>
         </div>
@@ -323,14 +331,16 @@
         <div class="controls">
           <div class="control">
             <label for="list-items">Items (comma or JSON)</label>
-            <input
+            <wc-input
               id="list-items"
               type="text"
               value='["Build UI","Connect form","Ship"]'
-            />
+            ></wc-input>
           </div>
           <div class="control">
-            <label> <input id="list-ordered" type="checkbox" /> Ordered </label>
+            <label>
+              <wc-checkbox id="list-ordered">Ordered</wc-checkbox>
+            </label>
           </div>
         </div>
       </section>
@@ -365,7 +375,7 @@
             <label>Options</label>
             <div class="row">
               <wc-checkbox name="agree" value="yes">Agree</wc-checkbox>
-              <wc-switch name="notify"></wc-switch>
+              <wc-switch name="notify">Notify</wc-switch>
             </div>
           </div>
           <div class="field">
