@@ -103,7 +103,6 @@ export class WCInputElement extends WCBaseElement {
       </style>
       <input
         type="${type}"
-        value="${value}"
         placeholder="${placeholder}"
         ${disabled ? 'disabled' : ''}
         ${readonly ? 'readonly' : ''}
@@ -116,6 +115,10 @@ export class WCInputElement extends WCBaseElement {
   protected afterRender() {
     const input = this.inputEl
     if (!input) return
+
+    // Set value directly on the element to avoid attribute escaping issues
+    const value = getStringAttr(this, 'value', '')
+    input.value = value
 
     input.addEventListener('input', () => {
       const detail = this.getEmitDetail(input.value)
