@@ -109,7 +109,7 @@ export class WCSelectElement extends WCBaseElement {
 
         select:disabled {
           background: var(--wc-surface);
-          color: var(--wc-muted);
+          color: var(--wc-disabled);
           cursor: not-allowed;
         }
       </style>

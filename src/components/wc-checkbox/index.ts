@@ -131,8 +131,8 @@ export class WCCheckboxElement extends WCBaseElement {
       }
 
       input[type='checkbox']:disabled:checked + .wc-checkbox-mark {
-        background: var(--wc-muted);
-        border-color: var(--wc-muted);
+        background: var(--wc-disabled);
+        border-color: var(--wc-disabled);
       }
 
       :host([disabled]) {
@@ -141,7 +141,7 @@ export class WCCheckboxElement extends WCBaseElement {
 
       :host([disabled]) label {
         cursor: not-allowed;
-        color: var(--wc-muted);
+        color: var(--wc-disabled);
       }
 
       

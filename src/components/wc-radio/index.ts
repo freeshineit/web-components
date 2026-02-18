@@ -132,8 +132,8 @@ export class WCRadioElement extends WCBaseElement {
       }
 
       input[type='radio']:disabled:checked + .wc-radio-dot {
-        background: var(--wc-muted);
-        border-color: var(--wc-muted);
+        background: var(--wc-disabled);
+        border-color: var(--wc-disabled);
       }
 
       :host([disabled]) {
@@ -142,7 +142,7 @@ export class WCRadioElement extends WCBaseElement {
 
       :host([disabled]) label {
         cursor: not-allowed;
-        color: var(--wc-muted);
+        color: var(--wc-disabled);
       }
       </style>
       <label>

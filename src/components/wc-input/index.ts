@@ -97,7 +97,7 @@ export class WCInputElement extends WCBaseElement {
         }
         input:disabled {
           background: var(--wc-surface);
-          color: var(--wc-muted);
+          color: var(--wc-disabled);
           cursor: not-allowed;
         }
       </style>

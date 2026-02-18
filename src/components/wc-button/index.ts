@@ -33,7 +33,7 @@ export class WCButtonElement extends WCBaseElement {
         button:disabled {
           background: var(--wc-surface);
           border-color: var(--wc-border);
-          color: var(--wc-muted);
+          color: var(--wc-disabled);
           cursor: not-allowed;
           box-shadow: none;
         }

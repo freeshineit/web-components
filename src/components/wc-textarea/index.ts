@@ -80,7 +80,7 @@ export class WCTextareaElement extends WCBaseElement {
         }
         textarea:disabled {
           background: var(--wc-surface);
-          color: var(--wc-muted);
+          color: var(--wc-disabled);
           cursor: not-allowed;
         }
       </style>
