@@ -1,7 +1,10 @@
 import { WCBaseElement } from '@/core/base-element';
 import { getBooleanAttr, getStringAttr } from '@/utils/attrs';
 
-type SelectOption = { label: string; value: string };
+interface SelectOption {
+  label: string;
+  value: string;
+}
 
 function parseOptions(raw: string): SelectOption[] {
   if (!raw) return [];

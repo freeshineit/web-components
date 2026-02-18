@@ -125,11 +125,7 @@
           </div>
           <div class="control">
             <label for="button-type">Type</label>
-            <wc-select id="button-type">
-              <wc-option value="button" selected>button</wc-option>
-              <wc-option value="submit">submit</wc-option>
-              <wc-option value="reset">reset</wc-option>
-            </wc-select>
+            <wc-select id="button-type" options='["button","submit","reset"]'></wc-select>
           </div>
           <div class="control">
             <label>
@@ -141,7 +137,7 @@
 
       <section class="card">
         <h2>Input</h2>
-        <wc-input id="demo-input" placeholder="Type here"></wc-input>
+        <wc-input id="demo-input" placeholder="Placeholder here"></wc-input>
         <div class="controls">
           <div class="control">
             <label for="input-value">Value</label>
@@ -149,14 +145,11 @@
           </div>
           <div class="control">
             <label for="input-placeholder">Placeholder</label>
-            <wc-input id="input-placeholder" type="text" value="Type here"></wc-input>
+            <wc-input id="input-placeholder" type="text" value="placeholder here"></wc-input>
           </div>
           <div class="control">
             <label for="input-type">Type</label>
-            <wc-select id="input-type">
-              <wc-option value="text" selected>text</wc-option>
-              <wc-option value="number">number</wc-option>
-            </wc-select>
+            <wc-select id="input-type" options='["text","number"]'></wc-select>
           </div>
           <div class="control">
             <label for="input-min">Min</label>
@@ -235,7 +228,7 @@
       <section class="card">
         <h2>Radio</h2>
         <div class="row">
-          <wc-radio name="demo-plan" value="basic" id="demo-radio-basic">Basic</wc-radio>
+          <wc-radio name="demo-plan" value="basic" checked id="demo-radio-basic">Basic</wc-radio>
           <wc-radio name="demo-plan" value="pro" id="demo-radio-pro">Pro</wc-radio>
         </div>
         <div class="controls">

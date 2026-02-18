@@ -144,8 +144,9 @@
   bindOutput(radioBasic, radioOutput);
   bindOutput(radioPro, radioOutput);
   const updateRadioSelection = value => {
-    setBoolAttr(radioBasic, 'checked', value === 'basic');
-    setBoolAttr(radioPro, 'checked', value === 'pro');
+    console.log('updateRadioSelection', value, value === 'basic');
+    setBoolAttr(radioBasic, 'checked', value === 'Basic');
+    setBoolAttr(radioPro, 'checked', value === 'Pro');
   };
   radioSelected?.addEventListener('change', () => {
     updateRadioSelection(radioSelected.value);
