@@ -1,47 +1,47 @@
-import { WCBaseElement } from '@/core/base-element'
-import { getBooleanAttr, getStringAttr, setBooleanAttr } from '@/utils/attrs'
+import { WCBaseElement } from '@/core/base-element';
+import { getBooleanAttr, getStringAttr, setBooleanAttr } from '@/utils/attrs';
 
 export class WCSwitchElement extends WCBaseElement {
   static get observedAttributes() {
-    return ['checked', 'disabled', 'name']
+    return ['checked', 'disabled', 'name'];
   }
 
   private get inputEl(): HTMLInputElement | null {
-    return this.shadow.querySelector('input')
+    return this.shadow.querySelector('input');
   }
 
   get checked(): boolean {
-    return this.inputEl?.checked ?? getBooleanAttr(this, 'checked')
+    return this.inputEl?.checked ?? getBooleanAttr(this, 'checked');
   }
 
   set checked(next: boolean) {
-    setBooleanAttr(this, 'checked', next)
+    setBooleanAttr(this, 'checked', next);
   }
 
   protected onAttrChange(name: string) {
-    const input = this.inputEl
+    const input = this.inputEl;
     if (!input) {
-      this.render()
-      return
+      this.render();
+      return;
     }
 
     if (name === 'checked') {
-      input.checked = getBooleanAttr(this, 'checked')
-      return
+      input.checked = getBooleanAttr(this, 'checked');
+      return;
     }
 
     if (name === 'disabled') {
-      input.disabled = getBooleanAttr(this, 'disabled')
-      return
+      input.disabled = getBooleanAttr(this, 'disabled');
+      return;
     }
 
-    this.render()
+    this.render();
   }
 
   protected template() {
-    const checked = getBooleanAttr(this, 'checked')
-    const disabled = getBooleanAttr(this, 'disabled')
-    const name = getStringAttr(this, 'name', '')
+    const checked = getBooleanAttr(this, 'checked');
+    const disabled = getBooleanAttr(this, 'disabled');
+    const name = getStringAttr(this, 'name', '');
 
     return `
       <style>
@@ -89,27 +89,25 @@ export class WCSwitchElement extends WCBaseElement {
         }
       </style>
       <label class="wc-switch">
-        <input type="checkbox" ${checked ? 'checked' : ''} ${
-          disabled ? 'disabled' : ''
-        } ${name ? `name="${name}"` : ''} />
+        <input type="checkbox" ${checked ? 'checked' : ''} ${disabled ? 'disabled' : ''} ${name ? `name="${name}"` : ''} />
         <span class="wc-switch-knob"></span>
       </label>
-    `
+    `;
   }
 
   protected afterRender() {
-    const input = this.inputEl
-    if (!input) return
+    const input = this.inputEl;
+    if (!input) return;
 
     input.addEventListener('change', () => {
-      setBooleanAttr(this, 'checked', input.checked)
+      setBooleanAttr(this, 'checked', input.checked);
       this.emit('change', {
         name: getStringAttr(this, 'name', ''),
         checked: input.checked,
         type: 'switch',
-      })
-    })
+      });
+    });
   }
 }
 
-customElements.define('wc-switch', WCSwitchElement)
+customElements.define('wc-switch', WCSwitchElement);

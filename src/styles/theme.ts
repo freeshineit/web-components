@@ -43,4 +43,4 @@ export const themeCss = `:root,
   --wc-surface: #1f1f1f;
   --wc-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
 }
-`
+`;

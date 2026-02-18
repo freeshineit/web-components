@@ -1,14 +1,14 @@
-import { WCBaseElement } from '@/core/base-element'
-import { getBooleanAttr, getStringAttr } from '@/utils/attrs'
+import { WCBaseElement } from '@/core/base-element';
+import { getBooleanAttr, getStringAttr } from '@/utils/attrs';
 
 export class WCButtonElement extends WCBaseElement {
   static get observedAttributes() {
-    return ['type', 'disabled']
+    return ['type', 'disabled'];
   }
 
   protected template() {
-    const type = getStringAttr(this, 'type', 'button')
-    const disabled = getBooleanAttr(this, 'disabled')
+    const type = getStringAttr(this, 'type', 'button');
+    const disabled = getBooleanAttr(this, 'disabled');
 
     return `
       <style>
@@ -41,31 +41,31 @@ export class WCButtonElement extends WCBaseElement {
       <button type="${type}" ${disabled ? 'disabled' : ''}>
         <slot></slot>
       </button>
-    `
+    `;
   }
 
   protected afterRender() {
-    const button = this.shadow.querySelector('button')
-    if (!button) return
+    const button = this.shadow.querySelector('button');
+    if (!button) return;
 
     button.addEventListener('click', event => {
-      const type = getStringAttr(this, 'type', 'button')
+      const type = getStringAttr(this, 'type', 'button');
       if (type === 'submit') {
-        const form = this.closest('wc-form') as HTMLElement | null
+        const form = this.closest('wc-form') as HTMLElement | null;
         if (form && 'submit' in form) {
-          ;(form as any).submit()
-          event.preventDefault()
+          (form as any).submit();
+          event.preventDefault();
         }
       }
       if (type === 'reset') {
-        const form = this.closest('wc-form') as HTMLElement | null
+        const form = this.closest('wc-form') as HTMLElement | null;
         if (form && 'reset' in form) {
-          ;(form as any).reset()
-          event.preventDefault()
+          (form as any).reset();
+          event.preventDefault();
         }
       }
-    })
+    });
   }
 }
 
-customElements.define('wc-button', WCButtonElement)
+customElements.define('wc-button', WCButtonElement);

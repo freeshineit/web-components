@@ -1,59 +1,55 @@
-import { WCBaseElement } from '@/core/base-element'
-import { getBooleanAttr, getNumberAttr, getStringAttr } from '@/utils/attrs'
+import { WCBaseElement } from '@/core/base-element';
+import { getBooleanAttr, getNumberAttr, getStringAttr } from '@/utils/attrs';
 
 export class WCTextareaElement extends WCBaseElement {
   static get observedAttributes() {
-    return ['value', 'placeholder', 'disabled', 'name', 'readonly', 'rows']
+    return ['value', 'placeholder', 'disabled', 'name', 'readonly', 'rows'];
   }
 
   private get textareaEl(): HTMLTextAreaElement | null {
-    return this.shadow.querySelector('textarea')
+    return this.shadow.querySelector('textarea');
   }
 
   get value(): string {
-    return this.textareaEl?.value ?? getStringAttr(this, 'value', '')
+    return this.textareaEl?.value ?? getStringAttr(this, 'value', '');
   }
 
   set value(next: string) {
-    this.setAttribute('value', next)
+    this.setAttribute('value', next);
   }
 
-  protected onAttrChange(
-    name: string,
-    _oldValue: string | null,
-    newValue: string | null
-  ) {
-    const textarea = this.textareaEl
+  protected onAttrChange(name: string, _oldValue: string | null, newValue: string | null) {
+    const textarea = this.textareaEl;
     if (!textarea) {
-      this.render()
-      return
+      this.render();
+      return;
     }
 
     if (name === 'value' && newValue !== null) {
-      if (textarea.value !== newValue) textarea.value = newValue
-      return
+      if (textarea.value !== newValue) textarea.value = newValue;
+      return;
     }
 
     if (name === 'disabled') {
-      textarea.disabled = getBooleanAttr(this, 'disabled')
-      return
+      textarea.disabled = getBooleanAttr(this, 'disabled');
+      return;
     }
 
     if (name === 'placeholder') {
-      textarea.placeholder = getStringAttr(this, 'placeholder', '')
-      return
+      textarea.placeholder = getStringAttr(this, 'placeholder', '');
+      return;
     }
 
-    this.render()
+    this.render();
   }
 
   protected template() {
-    const value = getStringAttr(this, 'value', '')
-    const placeholder = getStringAttr(this, 'placeholder', '')
-    const disabled = getBooleanAttr(this, 'disabled')
-    const readonly = getBooleanAttr(this, 'readonly')
-    const name = getStringAttr(this, 'name', '')
-    const rows = getNumberAttr(this, 'rows', 3)
+    const value = getStringAttr(this, 'value', '');
+    const placeholder = getStringAttr(this, 'placeholder', '');
+    const disabled = getBooleanAttr(this, 'disabled');
+    const readonly = getBooleanAttr(this, 'readonly');
+    const name = getStringAttr(this, 'name', '');
+    const rows = getNumberAttr(this, 'rows', 3);
 
     return `
       <style>
@@ -91,30 +87,30 @@ export class WCTextareaElement extends WCBaseElement {
         ${readonly ? 'readonly' : ''}
         ${name ? `name="${name}"` : ''}
       >${value}</textarea>
-    `
+    `;
   }
 
   protected afterRender() {
-    const textarea = this.textareaEl
-    if (!textarea) return
+    const textarea = this.textareaEl;
+    if (!textarea) return;
 
     textarea.addEventListener('input', () => {
       this.emit('input', {
         name: getStringAttr(this, 'name', ''),
         value: textarea.value,
         type: 'textarea',
-      })
-    })
+      });
+    });
 
     textarea.addEventListener('change', () => {
-      this.setAttribute('value', textarea.value)
+      this.setAttribute('value', textarea.value);
       this.emit('change', {
         name: getStringAttr(this, 'name', ''),
         value: textarea.value,
         type: 'textarea',
-      })
-    })
+      });
+    });
   }
 }
 
-customElements.define('wc-textarea', WCTextareaElement)
+customElements.define('wc-textarea', WCTextareaElement);

@@ -1,77 +1,63 @@
-import { WCBaseElement } from '@/core/base-element'
-import { getBooleanAttr, getNumberAttr, getStringAttr } from '@/utils/attrs'
+import { WCBaseElement } from '@/core/base-element';
+import { getBooleanAttr, getNumberAttr, getStringAttr } from '@/utils/attrs';
 
 export class WCInputElement extends WCBaseElement {
   static get observedAttributes() {
-    return [
-      'type',
-      'value',
-      'placeholder',
-      'disabled',
-      'name',
-      'readonly',
-      'min',
-      'max',
-      'step',
-    ]
+    return ['type', 'value', 'placeholder', 'disabled', 'name', 'readonly', 'min', 'max', 'step'];
   }
 
   private get inputEl(): HTMLInputElement | null {
-    return this.shadow.querySelector('input')
+    return this.shadow.querySelector('input');
   }
 
   get value(): string {
-    return this.inputEl?.value ?? getStringAttr(this, 'value', '')
+    return this.inputEl?.value ?? getStringAttr(this, 'value', '');
   }
 
   set value(next: string) {
-    this.setAttribute('value', next)
+    this.setAttribute('value', next);
   }
 
-  protected onAttrChange(
-    name: string,
-    _oldValue: string | null,
-    newValue: string | null
-  ) {
-    const input = this.inputEl
+  protected onAttrChange(name: string, _oldValue: string | null, newValue: string | null) {
+    const input = this.inputEl;
     if (!input) {
-      this.render()
-      return
+      this.render();
+      return;
     }
 
     if (name === 'value' && newValue !== null) {
-      if (input.value !== newValue) input.value = newValue
-      return
+      if (input.value !== newValue) input.value = newValue;
+      return;
     }
 
     if (name === 'disabled') {
-      input.disabled = getBooleanAttr(this, 'disabled')
-      return
+      input.disabled = getBooleanAttr(this, 'disabled');
+      return;
     }
 
     if (name === 'placeholder') {
-      input.placeholder = getStringAttr(this, 'placeholder', '')
-      return
+      input.placeholder = getStringAttr(this, 'placeholder', '');
+      return;
     }
 
-    this.render()
+    this.render();
   }
 
   protected template() {
-    const typeAttr = getStringAttr(this, 'type', 'text')
-    const type = typeAttr === 'number' ? 'number' : 'text'
-    const value = getStringAttr(this, 'value', '')
-    const placeholder = getStringAttr(this, 'placeholder', '')
-    const disabled = getBooleanAttr(this, 'disabled')
-    const readonly = getBooleanAttr(this, 'readonly')
-    const name = getStringAttr(this, 'name', '')
-    const min = getNumberAttr(this, 'min')
-    const max = getNumberAttr(this, 'max')
-    const step = getNumberAttr(this, 'step')
+    const typeAttr = getStringAttr(this, 'type', 'text');
+    const type = typeAttr === 'number' ? 'number' : 'text';
+    const value = getStringAttr(this, 'value', '');
+    const placeholder = getStringAttr(this, 'placeholder', '');
+    const disabled = getBooleanAttr(this, 'disabled');
+    const readonly = getBooleanAttr(this, 'readonly');
+    const name = getStringAttr(this, 'name', '');
+    const min = getNumberAttr(this, 'min');
+    const max = getNumberAttr(this, 'max');
+    const step = getNumberAttr(this, 'step');
 
-    const minAttr = min !== undefined ? ` min="${min}"` : ''
-    const maxAttr = max !== undefined ? ` max="${max}"` : ''
-    const stepAttr = step !== undefined ? ` step="${step}"` : ''
+    const minAttr = min !== undefined ? ` min="${min}"` : '';
+    const maxAttr = max !== undefined ? ` max="${max}"` : '';
+    const stepAttr = step !== undefined ? ` step="${step}"` : '';
 
     return `
       <style>
@@ -109,38 +95,38 @@ export class WCInputElement extends WCBaseElement {
         ${name ? `name="${name}"` : ''}
         ${minAttr}${maxAttr}${stepAttr}
       />
-    `
+    `;
   }
 
   protected afterRender() {
-    const input = this.inputEl
-    if (!input) return
+    const input = this.inputEl;
+    if (!input) return;
 
     // Set value directly on the element to avoid attribute escaping issues
-    const value = getStringAttr(this, 'value', '')
-    input.value = value
+    const value = getStringAttr(this, 'value', '');
+    input.value = value;
 
     input.addEventListener('input', () => {
-      const detail = this.getEmitDetail(input.value)
-      this.emit('input', detail)
-    })
+      const detail = this.getEmitDetail(input.value);
+      this.emit('input', detail);
+    });
 
     input.addEventListener('change', () => {
-      this.setAttribute('value', input.value)
-      const detail = this.getEmitDetail(input.value)
-      this.emit('change', detail)
-    })
+      this.setAttribute('value', input.value);
+      const detail = this.getEmitDetail(input.value);
+      this.emit('change', detail);
+    });
   }
 
   private getEmitDetail(value: string) {
-    const type = getStringAttr(this, 'type', 'text')
-    const name = getStringAttr(this, 'name', '')
+    const type = getStringAttr(this, 'type', 'text');
+    const name = getStringAttr(this, 'name', '');
     if (type === 'number') {
-      const num = Number(value)
-      return { name, value: Number.isNaN(num) ? null : num, type }
+      const num = Number(value);
+      return { name, value: Number.isNaN(num) ? null : num, type };
     }
-    return { name, value, type }
+    return { name, value, type };
   }
 }
 
-customElements.define('wc-input', WCInputElement)
+customElements.define('wc-input', WCInputElement);

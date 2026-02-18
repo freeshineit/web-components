@@ -1,43 +1,35 @@
 export abstract class WCBaseElement extends HTMLElement {
-  protected shadow: ShadowRoot
-  private hasRendered = false
+  protected shadow: ShadowRoot;
+  private hasRendered = false;
 
   constructor() {
-    super()
-    this.shadow = this.attachShadow({ mode: 'open' })
+    super();
+    this.shadow = this.attachShadow({ mode: 'open' });
   }
 
   connectedCallback() {
-    this.render()
+    this.render();
   }
 
-  attributeChangedCallback(
-    name: string,
-    oldValue: string | null,
-    newValue: string | null
-  ) {
-    if (oldValue === newValue) return
-    this.onAttrChange(name, oldValue, newValue)
+  attributeChangedCallback(name: string, oldValue: string | null, newValue: string | null) {
+    if (oldValue === newValue) return;
+    this.onAttrChange(name, oldValue, newValue);
   }
 
-  protected onAttrChange(
-    _name: string,
-    _oldValue: string | null,
-    _newValue: string | null
-  ) {
-    this.render()
+  protected onAttrChange(_name: string, _oldValue: string | null, _newValue: string | null) {
+    this.render();
   }
 
   protected render() {
-    const html = this.template()
+    const html = this.template();
     if (!this.hasRendered || this.shadow.innerHTML !== html) {
-      this.shadow.innerHTML = html
-      this.hasRendered = true
-      this.afterRender()
+      this.shadow.innerHTML = html;
+      this.hasRendered = true;
+      this.afterRender();
     }
   }
 
-  protected abstract template(): string
+  protected abstract template(): string;
 
   protected afterRender() {}
 
@@ -47,7 +39,7 @@ export abstract class WCBaseElement extends HTMLElement {
         detail,
         bubbles: true,
         composed: true,
-      })
-    )
+      }),
+    );
   }
 }

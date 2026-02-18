@@ -1,50 +1,50 @@
-import { WCBaseElement } from '@/core/base-element'
-import { getBooleanAttr, getStringAttr, setBooleanAttr } from '@/utils/attrs'
+import { WCBaseElement } from '@/core/base-element';
+import { getBooleanAttr, getStringAttr, setBooleanAttr } from '@/utils/attrs';
 
 export class WCRadioElement extends WCBaseElement {
   static get observedAttributes() {
-    return ['checked', 'disabled', 'name', 'value']
+    return ['checked', 'disabled', 'name', 'value'];
   }
 
   private get inputEl(): HTMLInputElement | null {
-    return this.shadow.querySelector('input[type="radio"]')
+    return this.shadow.querySelector('input[type="radio"]');
   }
 
   get checked(): boolean {
-    return this.inputEl?.checked ?? getBooleanAttr(this, 'checked')
+    return this.inputEl?.checked ?? getBooleanAttr(this, 'checked');
   }
 
   set checked(next: boolean) {
-    setBooleanAttr(this, 'checked', next)
-    const input = this.inputEl
-    if (input) input.checked = next
+    setBooleanAttr(this, 'checked', next);
+    const input = this.inputEl;
+    if (input) input.checked = next;
   }
 
   protected onAttrChange(name: string) {
-    const input = this.inputEl
+    const input = this.inputEl;
     if (!input) {
-      this.render()
-      return
+      this.render();
+      return;
     }
 
     if (name === 'checked') {
-      input.checked = getBooleanAttr(this, 'checked')
-      return
+      input.checked = getBooleanAttr(this, 'checked');
+      return;
     }
 
     if (name === 'disabled') {
-      input.disabled = getBooleanAttr(this, 'disabled')
-      return
+      input.disabled = getBooleanAttr(this, 'disabled');
+      return;
     }
 
-    this.render()
+    this.render();
   }
 
   protected template() {
-    const checked = getBooleanAttr(this, 'checked')
-    const disabled = getBooleanAttr(this, 'disabled')
-    const name = getStringAttr(this, 'name', '')
-    const value = getStringAttr(this, 'value', 'on')
+    const checked = getBooleanAttr(this, 'checked');
+    const disabled = getBooleanAttr(this, 'disabled');
+    const name = getStringAttr(this, 'name', '');
+    const value = getStringAttr(this, 'value', 'on');
 
     return `
       <style>
@@ -158,30 +158,30 @@ export class WCRadioElement extends WCBaseElement {
         </div>
         <slot></slot>
       </label>
-    `
+    `;
   }
 
   protected afterRender() {
-    const input = this.inputEl
-    if (!input) return
+    const input = this.inputEl;
+    if (!input) return;
 
     // Remove old listeners to prevent duplicates
-    input.removeEventListener('change', this.handleChange)
-    input.removeEventListener('click', this.handleClick)
+    input.removeEventListener('change', this.handleChange);
+    input.removeEventListener('click', this.handleClick);
 
-    input.addEventListener('change', this.handleChange)
-    input.addEventListener('click', this.handleClick)
+    input.addEventListener('change', this.handleChange);
+    input.addEventListener('click', this.handleClick);
   }
 
   private handleChange = () => {
-    const input = this.inputEl
-    if (!input) return
+    const input = this.inputEl;
+    if (!input) return;
 
     // Always update checked state
-    setBooleanAttr(this, 'checked', input.checked)
+    setBooleanAttr(this, 'checked', input.checked);
 
     if (input.checked) {
-      this.uncheckSiblings()
+      this.uncheckSiblings();
     }
 
     this.emit('change', {
@@ -189,46 +189,44 @@ export class WCRadioElement extends WCBaseElement {
       value: getStringAttr(this, 'value', 'on'),
       checked: input.checked,
       type: 'radio',
-    })
-  }
+    });
+  };
 
   private handleClick = () => {
-    const input = this.inputEl
-    if (!input || input.disabled) return
+    const input = this.inputEl;
+    if (!input || input.disabled) return;
 
     // Ensure checked state is reflected in attribute for consistency
     if (input.checked) {
-      setBooleanAttr(this, 'checked', true)
+      setBooleanAttr(this, 'checked', true);
     }
-  }
+  };
 
   private uncheckSiblings() {
-    const name = getStringAttr(this, 'name', '')
-    if (!name) return
+    const name = getStringAttr(this, 'name', '');
+    if (!name) return;
 
-    const root = this.getRootNode() as Document | ShadowRoot
-    const radios = root.querySelectorAll('wc-radio')
+    const root = this.getRootNode() as Document | ShadowRoot;
+    const radios = root.querySelectorAll('wc-radio');
 
     radios.forEach(node => {
       if (node !== this && node.getAttribute('name') === name) {
-        node.removeAttribute('checked')
-        const input = node.shadowRoot?.querySelector(
-          'input[type="radio"]'
-        ) as HTMLInputElement | null
+        node.removeAttribute('checked');
+        const input = node.shadowRoot?.querySelector('input[type="radio"]') as HTMLInputElement | null;
         if (input) {
-          input.checked = false
+          input.checked = false;
         }
       }
-    })
+    });
   }
 
   disconnectedCallback() {
-    const input = this.inputEl
+    const input = this.inputEl;
     if (input) {
-      input.removeEventListener('change', this.handleChange)
-      input.removeEventListener('click', this.handleClick)
+      input.removeEventListener('change', this.handleChange);
+      input.removeEventListener('click', this.handleClick);
     }
   }
 }
 
-customElements.define('wc-radio', WCRadioElement)
+customElements.define('wc-radio', WCRadioElement);

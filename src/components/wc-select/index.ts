@@ -1,84 +1,71 @@
-import { WCBaseElement } from '@/core/base-element'
-import { getBooleanAttr, getStringAttr } from '@/utils/attrs'
+import { WCBaseElement } from '@/core/base-element';
+import { getBooleanAttr, getStringAttr } from '@/utils/attrs';
 
-type SelectOption = { label: string; value: string }
+type SelectOption = { label: string; value: string };
 
 function parseOptions(raw: string): SelectOption[] {
-  if (!raw) return []
+  if (!raw) return [];
   try {
-    const parsed = JSON.parse(raw)
+    const parsed = JSON.parse(raw);
     if (Array.isArray(parsed)) {
       return parsed.map(item => {
-        if (typeof item === 'string') return { label: item, value: item }
+        if (typeof item === 'string') return { label: item, value: item };
         return {
           label: String(item.label ?? item.value ?? ''),
           value: String(item.value ?? item.label ?? ''),
-        }
-      })
+        };
+      });
     }
   } catch {
-    return raw
-      .split(',')
-      .map(item => ({ label: item.trim(), value: item.trim() }))
+    return raw.split(',').map(item => ({ label: item.trim(), value: item.trim() }));
   }
-  return []
+  return [];
 }
 
 export class WCSelectElement extends WCBaseElement {
   static get observedAttributes() {
-    return ['value', 'disabled', 'name', 'options']
+    return ['value', 'disabled', 'name', 'options'];
   }
 
   private get selectEl(): HTMLSelectElement | null {
-    return this.shadow.querySelector('select')
+    return this.shadow.querySelector('select');
   }
 
   get value(): string {
-    return this.selectEl?.value ?? getStringAttr(this, 'value', '')
+    return this.selectEl?.value ?? getStringAttr(this, 'value', '');
   }
 
   set value(next: string) {
-    this.setAttribute('value', next)
+    this.setAttribute('value', next);
   }
 
-  protected onAttrChange(
-    name: string,
-    _oldValue: string | null,
-    newValue: string | null
-  ) {
-    const select = this.selectEl
+  protected onAttrChange(name: string, _oldValue: string | null, newValue: string | null) {
+    const select = this.selectEl;
     if (!select) {
-      this.render()
-      return
+      this.render();
+      return;
     }
 
     if (name === 'value' && newValue !== null) {
-      if (select.value !== newValue) select.value = newValue
-      return
+      if (select.value !== newValue) select.value = newValue;
+      return;
     }
 
     if (name === 'disabled') {
-      select.disabled = getBooleanAttr(this, 'disabled')
-      return
+      select.disabled = getBooleanAttr(this, 'disabled');
+      return;
     }
 
-    this.render()
+    this.render();
   }
 
   protected template() {
-    const value = getStringAttr(this, 'value', '')
-    const disabled = getBooleanAttr(this, 'disabled')
-    const name = getStringAttr(this, 'name', '')
-    const options = parseOptions(getStringAttr(this, 'options', ''))
+    const value = getStringAttr(this, 'value', '');
+    const disabled = getBooleanAttr(this, 'disabled');
+    const name = getStringAttr(this, 'name', '');
+    const options = parseOptions(getStringAttr(this, 'options', ''));
 
-    const optionHtml = options
-      .map(
-        option =>
-          `<option value="${option.value}" ${
-            option.value === value ? 'selected' : ''
-          }>${option.label}</option>`
-      )
-      .join('')
+    const optionHtml = options.map(option => `<option value="${option.value}" ${option.value === value ? 'selected' : ''}>${option.label}</option>`).join('');
 
     return `
       <style>
@@ -116,22 +103,22 @@ export class WCSelectElement extends WCBaseElement {
       <select ${disabled ? 'disabled' : ''} ${name ? `name="${name}"` : ''}>
         ${optionHtml}
       </select>
-    `
+    `;
   }
 
   protected afterRender() {
-    const select = this.selectEl
-    if (!select) return
+    const select = this.selectEl;
+    if (!select) return;
 
     select.addEventListener('change', () => {
-      this.setAttribute('value', select.value)
+      this.setAttribute('value', select.value);
       this.emit('change', {
         name: getStringAttr(this, 'name', ''),
         value: select.value,
         type: 'select',
-      })
-    })
+      });
+    });
   }
 }
 
-customElements.define('wc-select', WCSelectElement)
+customElements.define('wc-select', WCSelectElement);
