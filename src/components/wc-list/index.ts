@@ -1,7 +1,10 @@
 import { WCBaseElement } from '@/core/base-element';
 import { getBooleanAttr, getStringAttr } from '@/utils/attrs';
 
-type ListItem = { label: string; value?: string };
+interface ListItem {
+  label: string;
+  value?: string;
+}
 
 function parseItems(raw: string): ListItem[] {
   if (!raw) return [];
@@ -22,13 +25,23 @@ function parseItems(raw: string): ListItem[] {
   return [];
 }
 
+function getChildItems(): ListItem[] {
+  const itemEls = Array.from(document.querySelectorAll('wc-item'));
+  return itemEls.map(el => ({
+    label: el.getAttribute('label') || el.textContent?.trim() || '',
+    value: el.getAttribute('value'),
+  }));
+}
+
 export class WCListElement extends WCBaseElement {
   static get observedAttributes() {
     return ['items', 'ordered'];
   }
 
   protected template() {
-    const items = parseItems(getStringAttr(this, 'items', ''));
+    const itemsAttr = getStringAttr(this, 'items', '');
+    // First try to get items from attribute, then fall back to child wc-item elements
+    const items = itemsAttr ? parseItems(itemsAttr) : getChildItems();
     const ordered = getBooleanAttr(this, 'ordered');
     const tag = ordered ? 'ol' : 'ul';
 

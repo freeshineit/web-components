@@ -25,6 +25,14 @@ function parseOptions(raw: string): SelectOption[] {
   return [];
 }
 
+function getChildOptions(): SelectOption[] {
+  const optionEls = Array.from(document.querySelectorAll('wc-option'));
+  return optionEls.map(el => ({
+    label: el.getAttribute('label') || el.textContent?.trim() || '',
+    value: el.getAttribute('value') || el.textContent?.trim() || '',
+  }));
+}
+
 export class WCSelectElement extends WCBaseElement {
   static get observedAttributes() {
     return ['value', 'disabled', 'name', 'options'];
@@ -66,7 +74,10 @@ export class WCSelectElement extends WCBaseElement {
     const value = getStringAttr(this, 'value', '');
     const disabled = getBooleanAttr(this, 'disabled');
     const name = getStringAttr(this, 'name', '');
-    const options = parseOptions(getStringAttr(this, 'options', ''));
+    const optionsAttr = getStringAttr(this, 'options', '');
+
+    // First try to get options from attribute, then fall back to child wc-option elements
+    const options = optionsAttr ? parseOptions(optionsAttr) : getChildOptions();
 
     const optionHtml = options.map(option => `<option value="${option.value}" ${option.value === value ? 'selected' : ''}>${option.label}</option>`).join('');
 
