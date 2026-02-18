@@ -2,3 +2,5 @@ package.json
 /pnpm-lock.yaml
 *.min.js
 docs
+dist
+coverage
