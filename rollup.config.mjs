@@ -1,24 +1,24 @@
-import commonjs from '@rollup/plugin-commonjs'
-import nodeResolve from '@rollup/plugin-node-resolve'
-import swc from '@rollup/plugin-swc'
-import { babel } from '@rollup/plugin-babel'
-import serve from 'rollup-plugin-serve'
-import { dts } from 'rollup-plugin-dts'
-import eslint from '@rollup/plugin-eslint'
-import alias from '@rollup/plugin-alias'
-import strip from '@rollup/plugin-strip'
-import replace from '@rollup/plugin-replace'
-import dayjs from 'dayjs'
-import postcss from 'rollup-plugin-postcss'
-import copy from 'rollup-plugin-copy'
-import autoprefixer from 'autoprefixer'
-import { resolve } from 'node:path'
-import fs from 'fs'
+import commonjs from '@rollup/plugin-commonjs';
+import nodeResolve from '@rollup/plugin-node-resolve';
+import swc from '@rollup/plugin-swc';
+import { babel } from '@rollup/plugin-babel';
+import serve from 'rollup-plugin-serve';
+import { dts } from 'rollup-plugin-dts';
+import eslint from '@rollup/plugin-eslint';
+import alias from '@rollup/plugin-alias';
+import strip from '@rollup/plugin-strip';
+import replace from '@rollup/plugin-replace';
+import dayjs from 'dayjs';
+import postcss from 'rollup-plugin-postcss';
+import copy from 'rollup-plugin-copy';
+import autoprefixer from 'autoprefixer';
+import { resolve } from 'node:path';
+import fs from 'fs';
 
-const pkg = JSON.parse(fs.readFileSync('./package.json', 'utf-8'))
+const pkg = JSON.parse(fs.readFileSync('./package.json', 'utf-8'));
 // import { injectCssRequire } from './plugins/injectCssRequire.mjs'
 
-const isDev = process.env.NODE_ENV !== 'production'
+const isDev = process.env.NODE_ENV !== 'production';
 
 /**
  * @description rollup config function
@@ -45,13 +45,13 @@ function generateConfig(pkg, configs) {
  * LICENSE file in the root directory of this source tree.
  */`;
 
-  const input = 'src/index.ts'
-  const cssInput = 'src/style/css.ts' // 这个路径是约定路径，请勿随意修改
+  const input = 'src/index.ts';
+  const cssInput = 'src/style/css.ts'; // 这个路径是约定路径，请勿随意修改
 
-  const externals = Object.keys(pkg?.dependencies || {})
+  const externals = Object.keys(pkg?.dependencies || {});
 
-  const hasUmd = fs.existsSync('src/main.ts') // 是否存在 UMD 入口文件
-  const hasStyle = fs.existsSync(cssInput) // 是否存在样式入口文件
+  const hasUmd = fs.existsSync('src/main.ts'); // 是否存在 UMD 入口文件
+  const hasStyle = fs.existsSync(cssInput); // 是否存在样式入口文件
 
   const defaultConfigs = [
     hasUmd
@@ -108,7 +108,7 @@ function generateConfig(pkg, configs) {
           ],
         }
       : null,
-  ].filter(Boolean)
+  ].filter(Boolean);
 
   return [
     ...defaultConfigs.map(entry => ({
@@ -180,7 +180,7 @@ function generateConfig(pkg, configs) {
           includePaths: ['style/', 'node_modules/'],
           // 处理从 node_modules 导入
           importer(path) {
-            return { file: path[0] === '~' ? path.substr(1) : path }
+            return { file: path[0] === '~' ? path.substr(1) : path };
           },
         }),
         entry.input === cssInput
@@ -202,18 +202,7 @@ function generateConfig(pkg, configs) {
           ? strip({
               include: '**/*.(mjs|js|ts|jsx|tsx)',
               debugger: true,
-              functions: [
-                'console.log',
-                'console.time',
-                'console.timeEnd',
-                'console.dir',
-                'console.info',
-                'console.debug',
-                'console.group',
-                'console.profile',
-                'console.trace',
-                'assert.*',
-              ],
+              functions: ['console.log', 'console.time', 'console.timeEnd', 'console.dir', 'console.info', 'console.debug', 'console.group', 'console.profile', 'console.trace', 'assert.*'],
             })
           : null,
         isDev && entry.output[0].format === 'umd'
@@ -244,7 +233,7 @@ function generateConfig(pkg, configs) {
       external: [/\.(css|less|scss|sass)$/],
     },
     ...(configs || []),
-  ]
+  ];
 }
 
-export default generateConfig({ ...pkg, port: 3001 })
+export default generateConfig({ ...pkg, port: 3001 });
