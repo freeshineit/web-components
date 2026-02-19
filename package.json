@@ -20,7 +20,7 @@
   ],
   "scripts": {
     "dev": "cross-env NODE_ENV=development rollup --config rollup.config.mjs --watch",
-    "build": "pnpm run clean && cross-env NODE_ENV=production rollup --config rollup.config.mjs && pnpm run docs",
+    "build": "npm run clean && cross-env NODE_ENV=production rollup --config rollup.config.mjs && npm run docs",
     "docs": "rimraf docs && typedoc --out docs src/index.ts",
     "clean": "rimraf dist docs temp",
     "lint": "eslint --fix \"./src/*.{ts,tsx,js,jsx,mjs}\"",
