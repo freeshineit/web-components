@@ -52,7 +52,7 @@ cd docs && http-server -p 8080 .
 ### react
 
 ```tsx
-import '@skax/web-components'
+import '@skax/web-components';
 // import '@skax/web-components/es/button'
 
 function App() {
@@ -68,9 +68,9 @@ function App() {
 export declare global {
   namespace JSX {
     interface IntrinsicElements {
-      "wc-button": WCButtonElement;
-      "wc-input": WCInputElement;
-      "wc-list": WCListElement;
+      'wc-button': WCButtonElement;
+      'wc-input': WCInputElement;
+      'wc-list': WCListElement;
     }
   }
 }
@@ -82,8 +82,8 @@ export declare global {
 
 ```vue
 <script setup>
-  import '@skax/web-components'
-  // import '@skax/web-components/es/button'
+import '@skax/web-components';
+// import '@skax/web-components/es/button'
 </script>
 
 <template>
