@@ -1,67 +1,42 @@
-<!doctype html><html lang="en"><head><meta charset="UTF-8"/><title>Example of WebComponent</title><style>.container-center {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-      }
+<!DOCTYPE html><html class="default" lang="en" data-base="./"><head><meta charset="utf-8"/><meta http-equiv="x-ua-compatible" content="IE=edge"/><title>@skax/web-components</title><meta name="description" content="Documentation for @skax/web-components"/><meta name="viewport" content="width=device-width, initial-scale=1"/><link rel="stylesheet" href="assets/style.css"/><link rel="stylesheet" href="assets/highlight.css"/><script defer src="assets/main.js"></script><script async src="assets/icons.js" id="tsd-icons-script"></script><script async src="assets/search.js" id="tsd-search-script"></script><script async src="assets/navigation.js" id="tsd-nav-script"></script></head><body><script>document.documentElement.dataset.theme = localStorage.getItem("tsd-theme") || "os";document.body.style.display="none";setTimeout(() => window.app?app.showPage():document.body.style.removeProperty("display"),500)</script><header class="tsd-page-toolbar"><div class="tsd-toolbar-contents container"><a href="index.html" class="title">@skax/web-components</a><div id="tsd-toolbar-links"></div><button id="tsd-search-trigger" class="tsd-widget" aria-label="Search"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><use href="assets/icons.svg#icon-search"></use></svg></button><dialog id="tsd-search" aria-label="Search"><input role="combobox" id="tsd-search-input" aria-controls="tsd-search-results" aria-autocomplete="list" aria-expanded="true" autocapitalize="off" autocomplete="off" placeholder="Search the docs" maxLength="100"/><ul role="listbox" id="tsd-search-results"></ul><div id="tsd-search-status" aria-live="polite" aria-atomic="true"><div>Preparing search index...</div></div></dialog><a href="#" class="tsd-widget menu" id="tsd-toolbar-menu-trigger" data-toggle="menu" aria-label="Menu"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><use href="assets/icons.svg#icon-menu"></use></svg></a></div></header><div class="container container-main"><div class="col-content"><div class="tsd-page-title"><h1>@skax/web-components</h1></div><div class="tsd-panel tsd-typography"><h2 id="web-components" class="tsd-anchor-link">Web Components<a href="#web-components" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h2>
+<p><img src="https://github.com/freeshineit/web-components/workflows/build/badge.svg" alt="build">
+<img src="https://img.shields.io/npm/dm/@skax/web-components.svg" alt="Download">
+<img src="https://img.shields.io/npm/v/@skax/web-components.svg" alt="Version">
+<img src="https://img.shields.io/npm/l/@skax/web-components.svg" alt="License"></p>
+<p><a href="https://developer.mozilla.org/zh-CN/docs/Web/Web_Components">Web Components</a> 是一套不同的技术，允许您创建可重用的定制元素（它们的功能封装在您的代码之外）并且在您的 web 应用中使用它们。</p>
+<h2 id="scripts" class="tsd-anchor-link">Scripts<a href="#scripts" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h2>
+<pre><code class="bash"><span class="hl-0"># development</span><br/><span class="hl-1">yarn</span><span class="hl-2"> </span><span class="hl-3">run</span><span class="hl-2"> </span><span class="hl-3">dev</span><br/><br/><span class="hl-0"># production</span><br/><span class="hl-1">yarn</span><span class="hl-2"> </span><span class="hl-3">run</span><span class="hl-2"> </span><span class="hl-3">build</span><br/><br/><span class="hl-0"># build document</span><br/><span class="hl-0"># https://github.com/http-party/http-server</span><br/><span class="hl-0"># version &gt;= 14</span><br/><span class="hl-1">yarn</span><span class="hl-2"> </span><span class="hl-3">run</span><span class="hl-2"> </span><span class="hl-3">build:doc</span><br/><span class="hl-1">cd</span><span class="hl-2"> </span><span class="hl-3">docs</span><span class="hl-2"> &amp;&amp; </span><span class="hl-1">http-server</span><span class="hl-2"> </span><span class="hl-4">-p</span><span class="hl-2"> </span><span class="hl-5">8080</span><span class="hl-2"> </span><span class="hl-3">.</span>
+</code><button type="button">Copy</button></pre>
 
-      .content {
-        width: 500px;
-      }
+<h2 id="use" class="tsd-anchor-link">Use<a href="#use" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h2>
+<blockquote>
+<p>yarn install @skax/web-components</p>
+</blockquote>
+<h3 id="component" class="tsd-anchor-link">component<a href="#component" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<p><code>wc-input</code>, <code>wc-button</code>, <code>wc-list</code></p>
+<h3 id="html" class="tsd-anchor-link">html<a href="#html" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<pre><code class="html"><span class="hl-0">&lt;!-- script --&gt;</span><br/><span class="hl-6">&lt;</span><span class="hl-7">script</span><span class="hl-8"> </span><span class="hl-9">src</span><span class="hl-8">=</span><span class="hl-10">&quot;./lib/bundle/@skax/web-components.umd.js&quot;</span><span class="hl-6">&gt;&lt;/</span><span class="hl-7">script</span><span class="hl-6">&gt;</span><br/><br/><span class="hl-6">&lt;</span><span class="hl-7">form</span><span class="hl-2"> </span><span class="hl-9">action</span><span class="hl-2">=</span><span class="hl-10">&quot;/get&quot;</span><span class="hl-2"> </span><span class="hl-9">name</span><span class="hl-2">=</span><span class="hl-10">&quot;form&quot;</span><span class="hl-6">&gt;</span><br/><span class="hl-2">  </span><span class="hl-6">&lt;</span><span class="hl-7">label</span><span class="hl-2"> </span><span class="hl-9">for</span><span class="hl-2">=</span><span class="hl-10">&quot;name&quot;</span><span class="hl-6">&gt;</span><br/><span class="hl-2">    </span><span class="hl-6">&lt;</span><span class="hl-7">wc-input</span><span class="hl-2"> </span><span class="hl-9">type</span><span class="hl-2">=</span><span class="hl-10">&quot;text&quot;</span><span class="hl-2"> </span><span class="hl-9">name</span><span class="hl-2">=</span><span class="hl-10">&quot;name&quot;</span><span class="hl-2"> </span><span class="hl-9">id</span><span class="hl-2">=</span><span class="hl-10">&quot;name&quot;</span><span class="hl-2"> </span><span class="hl-9">placeholder</span><span class="hl-2">=</span><span class="hl-10">&quot;input name&quot;</span><span class="hl-6">&gt;&lt;/</span><span class="hl-7">wc-input</span><span class="hl-6">&gt;</span><br/><span class="hl-2">  </span><span class="hl-6">&lt;/</span><span class="hl-7">label</span><span class="hl-6">&gt;</span><br/><span class="hl-2">  </span><span class="hl-6">&lt;</span><span class="hl-7">label</span><span class="hl-2"> </span><span class="hl-9">for</span><span class="hl-2">=</span><span class="hl-10">&quot;password&quot;</span><span class="hl-6">&gt;</span><br/><span class="hl-2">    </span><span class="hl-6">&lt;</span><span class="hl-7">wc-input</span><span class="hl-2"> </span><span class="hl-9">type</span><span class="hl-2">=</span><span class="hl-10">&quot;password&quot;</span><span class="hl-2"> </span><span class="hl-9">name</span><span class="hl-2">=</span><span class="hl-10">&quot;password&quot;</span><span class="hl-2"> </span><span class="hl-9">id</span><span class="hl-2">=</span><span class="hl-10">&quot;password&quot;</span><span class="hl-2"> </span><span class="hl-9">placeholder</span><span class="hl-2">=</span><span class="hl-10">&quot;input password&quot;</span><span class="hl-6">&gt;&lt;/</span><span class="hl-7">wc-input</span><span class="hl-6">&gt;</span><br/><span class="hl-2">  </span><span class="hl-6">&lt;/</span><span class="hl-7">label</span><span class="hl-6">&gt;</span><br/><span class="hl-2">  </span><span class="hl-6">&lt;</span><span class="hl-7">wc-button</span><span class="hl-2"> </span><span class="hl-9">type</span><span class="hl-2">=</span><span class="hl-10">&quot;submit&quot;</span><span class="hl-6">&gt;</span><span class="hl-2">Submit</span><span class="hl-6">&lt;/</span><span class="hl-7">wc-button</span><span class="hl-6">&gt;</span><br/><span class="hl-2">  </span><span class="hl-6">&lt;</span><span class="hl-7">wc-button</span><span class="hl-2"> </span><span class="hl-9">type</span><span class="hl-2">=</span><span class="hl-10">&quot;rest&quot;</span><span class="hl-6">&gt;</span><span class="hl-2">Rest</span><span class="hl-6">&lt;/</span><span class="hl-7">wc-button</span><span class="hl-6">&gt;</span><br/><span class="hl-6">&lt;/</span><span class="hl-7">form</span><span class="hl-6">&gt;</span>
+</code><button type="button">Copy</button></pre>
 
-      .flex {
-        display: flex;
-      }
+<h3 id="react" class="tsd-anchor-link">react<a href="#react" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<pre><code class="tsx"><span class="hl-11">import</span><span class="hl-2"> </span><span class="hl-3">&#39;@skax/web-components&#39;</span><span class="hl-2">;</span><br/><span class="hl-0">// import &#39;@skax/web-components/es/button&#39;</span><br/><br/><span class="hl-4">function</span><span class="hl-2"> </span><span class="hl-1">App</span><span class="hl-2">() {</span><br/><span class="hl-2">  </span><span class="hl-11">return</span><span class="hl-2"> </span><span class="hl-6">&lt;</span><span class="hl-12">wc-button</span><span class="hl-6">&gt;</span><span class="hl-2">Button</span><span class="hl-6">&lt;/</span><span class="hl-12">wc-button</span><span class="hl-6">&gt;</span><span class="hl-2">;</span><br/><span class="hl-2">}</span>
+</code><button type="button">Copy</button></pre>
 
-      wc-input {
-        width: 400px;
-      }
+<p>如果使用了 typescript，在 <code>react-app-env.d.ts</code>中添加下面声明。</p>
+<pre><code class="ts"><span class="hl-0">/// </span><span class="hl-6">&lt;</span><span class="hl-7">reference</span><span class="hl-0"> </span><span class="hl-9">types</span><span class="hl-2">=</span><span class="hl-3">&quot;@skax/web-components&quot;</span><span class="hl-0"> </span><span class="hl-6">/&gt;</span><br/><br/><span class="hl-4">export</span><span class="hl-2"> </span><span class="hl-4">declare</span><span class="hl-2"> </span><span class="hl-13">global</span><span class="hl-2"> {</span><br/><span class="hl-2">  </span><span class="hl-4">namespace</span><span class="hl-2"> </span><span class="hl-12">JSX</span><span class="hl-2"> {</span><br/><span class="hl-2">    </span><span class="hl-4">interface</span><span class="hl-2"> </span><span class="hl-12">IntrinsicElements</span><span class="hl-2"> {</span><br/><span class="hl-2">      </span><span class="hl-3">&#39;wc-button&#39;</span><span class="hl-2">: </span><span class="hl-12">WCButtonElement</span><span class="hl-2">;</span><br/><span class="hl-2">      </span><span class="hl-3">&#39;wc-input&#39;</span><span class="hl-2">: </span><span class="hl-12">WCInputElement</span><span class="hl-2">;</span><br/><span class="hl-2">      </span><span class="hl-3">&#39;wc-list&#39;</span><span class="hl-2">: </span><span class="hl-12">WCListElement</span><span class="hl-2">;</span><br/><span class="hl-2">    }</span><br/><span class="hl-2">  }</span><br/><span class="hl-2">}</span>
+</code><button type="button">Copy</button></pre>
 
-      wc-button {
-        width: 100px;
-      }</style><script defer="defer" src="./index.js"></script></head><body><div class="container-center"><div class="content"><div class="flex"><wc-input onfocus="console.log('onfocus')" type="text" name="color" id="color" placeholder="请输入颜色"></wc-input><wc-button title="HaHa" class="container" id="submit">确定</wc-button></div><wc-list colors id="list-box"></wc-list></div></div><script>;(function () {
-        const submitDom = document.getElementById('submit')
-        const listDom = document.getElementById('list-box')
-        const inputDom = document.getElementById('color')
+<p><a href="https://codesandbox.io/s/adoring-cdn-f7h4li">example</a></p>
+<h3 id="vue3" class="tsd-anchor-link">vue3<a href="#vue3" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<pre><code class="vue"><script setup>
+import '@skax/web-components';
+// import '@skax/web-components/es/button'
+</script>
 
-        const colors = []
+<template>
+  <wc-button>Button</wc-button>
+</template>
+</code><button type="button">Copy</button></pre>
 
-        submitDom.addEventListener(
-          'click',
-          () => {
-            setColors()
-          },
-          false
-        )
-
-        inputDom.addEventListener('focus', event => {
-          console.log('submitDom.addEventListener', event.keyCode)
-          document.addEventListener('keydown', handleKeydown, false)
-        })
-
-        submitDom.addEventListener(
-          'blur',
-          () => {
-            document.removeEventListener('keydown', handleKeydown, false)
-          },
-          false
-        )
-
-        function handleKeydown(event) {
-          console.log(event)
-          if (event.keyCode === 13) {
-            setColors()
-          }
-        }
-
-        function setColors() {
-          const color = document.getElementById('color').value
-
-          console.log(color)
-          if (color.trim()) {
-            colors.push(color)
-            listDom.setAttribute('colors', JSON.stringify(colors))
-            // inputDom.setAttribute('value', '')
-          }
-        }
-      })()</script></body></html>
+<p><a href="https://codesandbox.io/s/cool-cannon-5ou03c">example</a></p>
+</div></div><div class="col-sidebar"><div class="page-menu"><div class="tsd-navigation settings"><details class="tsd-accordion"><summary class="tsd-accordion-summary"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="assets/icons.svg#icon-chevronDown"></use></svg><h3>Settings</h3></summary><div class="tsd-accordion-details"><div class="tsd-filter-visibility"><span class="settings-label">Member Visibility</span><ul id="tsd-filter-options"><li class="tsd-filter-item"><label class="tsd-filter-input"><input type="checkbox" id="tsd-filter-protected" name="protected"/><svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><rect class="tsd-checkbox-background" width="30" height="30" x="1" y="1" rx="6" fill="none"></rect><path class="tsd-checkbox-checkmark" d="M8.35422 16.8214L13.2143 21.75L24.6458 10.25" stroke="none" stroke-width="3.5" stroke-linejoin="round" fill="none"></path></svg><span>Protected</span></label></li><li class="tsd-filter-item"><label class="tsd-filter-input"><input type="checkbox" id="tsd-filter-inherited" name="inherited" checked/><svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><rect class="tsd-checkbox-background" width="30" height="30" x="1" y="1" rx="6" fill="none"></rect><path class="tsd-checkbox-checkmark" d="M8.35422 16.8214L13.2143 21.75L24.6458 10.25" stroke="none" stroke-width="3.5" stroke-linejoin="round" fill="none"></path></svg><span>Inherited</span></label></li><li class="tsd-filter-item"><label class="tsd-filter-input"><input type="checkbox" id="tsd-filter-external" name="external"/><svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><rect class="tsd-checkbox-background" width="30" height="30" x="1" y="1" rx="6" fill="none"></rect><path class="tsd-checkbox-checkmark" d="M8.35422 16.8214L13.2143 21.75L24.6458 10.25" stroke="none" stroke-width="3.5" stroke-linejoin="round" fill="none"></path></svg><span>External</span></label></li></ul></div><div class="tsd-theme-toggle"><label class="settings-label" for="tsd-theme">Theme</label><select id="tsd-theme"><option value="os">OS</option><option value="light">Light</option><option value="dark">Dark</option></select></div></div></details></div><details open class="tsd-accordion tsd-page-navigation"><summary class="tsd-accordion-summary"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="assets/icons.svg#icon-chevronDown"></use></svg><h3>On This Page</h3></summary><div class="tsd-accordion-details"><a href="#web-components"><span>Web <wbr/>Components</span></a><a href="#scripts"><span>Scripts</span></a><a href="#use"><span>Use</span></a><ul><li><a href="#component"><span>component</span></a></li><li><a href="#html"><span>html</span></a></li><li><a href="#react"><span>react</span></a></li><li><a href="#vue3"><span>vue3</span></a></li></ul></div></details></div><div class="site-menu"><nav class="tsd-navigation"><a href="modules.html">@skax/web-components</a><ul class="tsd-small-nested-navigation" id="tsd-nav-container"><li>Loading...</li></ul></nav></div></div></div><footer><p class="tsd-generator">Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a></p></footer><div class="overlay"></div></body></html>
