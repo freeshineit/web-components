@@ -1,19 +1,58 @@
-name: github pages
+# name: github pages
 
+# on:
+#   push:
+#     branches:
+#       - main # default branch
+
+# jobs:
+#   deploy:
+#     runs-on: ubuntu-18.04
+#     steps:
+#       - uses: actions/checkout@v2
+#       - run: yarn
+#       - run: yarn docs
+#       - name: Deploy
+#         uses: peaceiris/actions-gh-pages@v3
+#         with:
+#           github_token: ${{ secrets.GITHUB_TOKEN }}
+#           publish_dir: ./docs
+
+name: github pages
 on:
   push:
-    branches:
-      - main # default branch
+    branches: [main]
+
+permissions:
+  contents: write
+  pages: write
 
 jobs:
   deploy:
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - run: yarn
-      - run: yarn docs
-      - name: Deploy
-        uses: peaceiris/actions-gh-pages@v3
+      - uses: actions/checkout@v4
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./docs
+          fetch-depth: 0
+      - uses: pnpm/action-setup@v3
+        with:
+          version: 8
+      - run: pnpm install
+      - run: pnpm run build
+
+      # # - name: Copy static files to docs
+      # - name: Ensure target directory exists
+      #   run: mkdir -p docs/media/style
+
+      # - name: Copy JS to docs
+      #   run: cp dist/index.umd.js docs/media/index.umd.js
+
+      # - name: Copy CSS to docs
+      #   run: cp dist/style/css.css docs/media/style/css.css
+
+      - name: Deploy to gh-pages
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          branch: gh-pages
+          folder: ./docs
+          token: ${{ secrets.PAGE_GITHUB_TOKEN }}
