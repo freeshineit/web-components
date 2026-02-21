@@ -1,0 +1,53 @@
+lockfileVersion: '6.0'
+
+settings:
+  autoInstallPeers: true
+  excludeLinksFromLockfile: false
+
+dependencies:
+  '@skax/web-components':
+    specifier: ^0.2.0
+    version: 0.2.0
+
+packages:
+  /@lit-labs/ssr-dom-shim@1.5.1:
+    resolution: { integrity: sha512-Aou5UdlSpr5whQe8AA/bZG0jMj96CoJIWbGfZ91qieWu5AWUMKw8VR/pAkQkJYvBNhmCcWnZlyyk5oze8JIqYA== }
+    dev: false
+
+  /@lit/reactive-element@1.6.3:
+    resolution: { integrity: sha512-QuTgnG52Poic7uM1AN5yJ09QMe0O28e10XzSvWDz02TJiiKee4stsiownEIadWm8nYzyDAyT+gKzUoZmiWQtsQ== }
+    dependencies:
+      '@lit-labs/ssr-dom-shim': 1.5.1
+    dev: false
+
+  /@skax/web-components@0.2.0:
+    resolution: { integrity: sha512-eeaHvQXEoUIZFnee2woc9HPcz1D6a7ZctzIGtRdCDZteWvJWgrloIHQ1/1N3Wj6bBzmzfceDsUtRj2Nn0U+1Iw== }
+    dependencies:
+      lit: 2.8.0
+    dev: false
+
+  /@types/trusted-types@2.0.7:
+    resolution: { integrity: sha512-ScaPdn1dQczgbl0QFTeTOmVHFULt394XJgOQNoyVhZ6r2vLnMLJfBPd53SB52T/3G36VI1/g2MZaX0cwDuXsfw== }
+    dev: false
+
+  /lit-element@3.3.3:
+    resolution: { integrity: sha512-XbeRxmTHubXENkV4h8RIPyr8lXc+Ff28rkcQzw3G6up2xg5E8Zu1IgOWIwBLEQsu3cOVFqdYwiVi0hv0SlpqUA== }
+    dependencies:
+      '@lit-labs/ssr-dom-shim': 1.5.1
+      '@lit/reactive-element': 1.6.3
+      lit-html: 2.8.0
+    dev: false
+
+  /lit-html@2.8.0:
+    resolution: { integrity: sha512-o9t+MQM3P4y7M7yNzqAyjp7z+mQGa4NS4CxiyLqFPyFWyc4O+nodLrkrxSaCTrla6M5YOLaT3RpbbqjszB5g3Q== }
+    dependencies:
+      '@types/trusted-types': 2.0.7
+    dev: false
+
+  /lit@2.8.0:
+    resolution: { integrity: sha512-4Sc3OFX9QHOJaHbmTMk28SYgVxLN3ePDjg7hofEft2zWlehFL3LiAuapWc4U/kYwMYJSh2hTCPZ6/LIC7ii0MA== }
+    dependencies:
+      '@lit/reactive-element': 1.6.3
+      lit-element: 3.3.3
+      lit-html: 2.8.0
+    dev: false
