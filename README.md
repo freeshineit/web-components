@@ -80,10 +80,10 @@ export declare global {
 
 ### vue3
 
-```vue
+```html
 <script setup>
-import '@skax/web-components';
-// import '@skax/web-components/es/button'
+  import '@skax/web-components';
+  // import '@skax/web-components/es/button'
 </script>
 
 <template>
