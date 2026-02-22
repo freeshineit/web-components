@@ -11,21 +11,21 @@
 
 ```bash
 # development
-yarn run dev
+pnpm run dev
 
 # production
-yarn run build
+pnpm run build
 
 # build document
 # https://github.com/http-party/http-server
 # version >= 14
-yarn run build:doc
+pnpm run docs
 cd docs && http-server -p 8080 .
 ```
 
 ## Use
 
-> yarn install @skax/web-components
+> pnpm install @skax/web-components
 
 ### component
 
